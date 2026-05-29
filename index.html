@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Гостемания — Бургер Кинг</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bk-brown':  '#502314',
+            'bk-orange': '#FF8732',
+            'bk-green':  '#198737',
+            'bk-yellow': '#FFAA00',
+            'bk-red':    '#D62300',
+            'bk-cream':  '#F5EBDC',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════ TOP NAV ═══════ -->
+<nav id="top-nav">
+  <div class="nav-inner">
+    <button class="nav-home-btn" onclick="navigateTo('home')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+      </svg>
+      <span class="hidden sm:inline">Главная</span>
+    </button>
+    <span id="nav-chapter"></span>
+    <span id="nav-progress"></span>
+  </div>
+  <div id="progress-bar-wrap"><div id="progress-bar"></div></div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════════════════ -->
+<div id="page-home" class="page">
+  
+ 
+<div class="home-hero" style="position: relative; padding-top: 96px; overflow: hidden;">
+  <img src="/pictures/hero_1.png" style="position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; z-index: 0;">
+  <div id='home-title' style="position: relative; z-index: 1;">
+    <h1>ГОСТЕМАНИЯ</h1>
+    <p>Интерактивный курс для сотрудников Бургер Кинг</p>
+  </div>
+</div>
+
+  <div class="content-wrap" style="padding-top:48px;">
+    <h2 style="font-size:22px;margin-bottom:8px;">Содержание курса</h2>
+    <p style="font-size:15px;opacity:0.6;margin-bottom:32px;font-family:'Roboto',sans-serif;font-weight:400;">Проходи главы по порядку. Каждая открывается кнопкой «Далее» в конце предыдущей.</p>
+
+    <div class="chapter-grid">
+      <div class="chapter-card" onclick="navigateTo('block1')">
+        <div class="chapter-num" style="background:#FF8732;">1</div>
+        <div>
+          <h3>Философия Гостемании</h3>
+          <p>Три кита и четыре навыка</p>
+        </div>
+      </div>
+      <div class="chapter-card" onclick="navigateTo('block2')">
+        <div class="chapter-num" style="background:#D62300;">2</div>
+        <div>
+          <h3>Алгоритм ДОБРО</h3>
+          <p>Твой инструмент в сложных ситуациях</p>
+        </div>
+      </div>
+      <div class="chapter-card" onclick="navigateTo('block3')">
+        <div class="chapter-num" style="background:#FFAA00;color:#502314;">3</div>
+        <div>
+          <h3>Работа с инцидентами</h3>
+          <p>Как читать настроение Гостя</p>
+        </div>
+      </div>
+      <div class="chapter-card" onclick="navigateTo('hub')">
+        <div class="chapter-num" style="background:#198737;">4</div>
+        <div>
+          <h3>Замена и комплемент</h3>
+          <p>Три раздела: замена, комплемент, особые случаи</p>
+        </div>
+      </div>
+      <div class="chapter-card full-width" onclick="navigateTo('block8')">
+        <div class="chapter-num" style="background:#502314;">5</div>
+        <div>
+          <h3>Заключение</h3>
+          <p>Итоги и материалы для скачивания</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     БЛОК 1. ФИЛОСОФИЯ ГОСТЕМАНИИ
+════════════════════════════════════════════════════ -->
+<div id="page-block1" class="page">
+  <!-- Banner -->
+  <div class="page-banner" style="background:linear-gradient(135deg,#502314 0%,#D62300 100%);padding-top:64px;">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,135,50,0.07) 0,rgba(255,135,50,0.07) 1px,transparent 0,transparent 50%);background-size:24px 24px;"></div>
+    <div class="banner-label">
+      <h1 style="color:#FF8732;font-size:clamp(32px,6vw,56px);margin:0;position:relative;">ФИЛОСОФИЯ ГОСТЕМАНИИ</h1>
+      <div class="placeholder-box" style="color:#F5EBDC;position:relative;">Баннер будет добавлен позже</div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <!-- Video placeholder -->
+    <div class="fade-in video-placeholder" style="margin-bottom:48px;">
+      <div class="play-icon">
+        <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <p>Видео будет добавлено позже</p>
+    </div>
+
+    <!-- Main text -->
+    <div class="fade-in body-text" style="margin-bottom:32px;">
+      <p style="font-size:clamp(20px,3.5vw,28px);font-weight:500;line-height:1.4;">Гостемания — это твоё внимание к тому, кто рядом.</p>
+    </div>
+
+    <div class="fade-in body-text" style="margin-bottom:48px;">
+      <p>Теперь покажем, из чего она состоит. 3 кита — то, на чём это держится. 4 навыка — то, что ты делаешь.</p>
+    </div>
+
+    <!-- Infographic placeholder -->
+    <div class="fade-in infographic-placeholder" style="margin-bottom:48px;">
+      <svg width="40" height="40" fill="none" stroke="#FFAA00" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 12px;display:block;">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+      </svg>
+      <p style="font-family:'Flame',sans-serif;font-size:18px;margin:0 0 6px;">Инфографика</p>
+      <p style="font-size:14px;opacity:0.6;margin:0;font-family:'Roboto',sans-serif;">3 кита Гостемании и 4 навыка — будет добавлена позже</p>
+    </div>
+
+    <div class="fade-in body-text">
+      <p>Философия Гостемании живёт в твоих действиях. А когда случается проблема — в игру вступает алгоритм ДОБРО.</p>
+    </div>
+
+    <div class="next-row">
+      <button class="btn-next" onclick="navigateTo('block2')">
+        Далее
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     БЛОК 2. АЛГОРИТМ ДОБРО
+════════════════════════════════════════════════════ -->
+<div id="page-block2" class="page">
+  <div class="page-banner" style="background:linear-gradient(135deg,#D62300 0%,#502314 100%);padding-top:64px;">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,rgba(255,170,0,0.06) 0,rgba(255,170,0,0.06) 1px,transparent 0,transparent 50%);background-size:24px 24px;"></div>
+    <div class="banner-label">
+      <h1 style="color:#FFAA00;font-size:clamp(32px,6vw,56px);margin:0;position:relative;">АЛГОРИТМ ДОБРО</h1>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="fade-in body-text" style="margin-bottom:40px;">
+      <p>Чаще всего ты приходишь на смену в хорошем настроении. Тебя окружают знакомые люди, которые готовы помочь. Всё как обычно. Но иногда случается то, что выбивает из колеи: Гость злится, блюдо не то, кричат без причины.</p>
+      <p>Чтобы в любой сложной ситуации тебе было просто, спокойно и понятно, что делать, — есть инструмент. Он называется «ДОБРО».</p>
+      <p>«ДОБРО» решает три задачи:</p>
+    </div>
+
+    <!-- 3 cards -->
+    <div class="fade-in cards-row" style="margin-bottom:48px;">
+      <div class="feature-card">
+        <div class="card-big-word">ТЫ</div>
+        <p class="card-sub">перестаёшь бояться конфликтов, потому что знаешь что делать</p>
+      </div>
+      <div class="feature-card">
+        <div class="card-big-word">ГОСТЬ</div>
+        <p class="card-sub">не просто покупает Воппер, у него появляется желание вернуться к нам снова</p>
+      </div>
+      <div class="feature-card">
+        <div class="card-big-word">КОМПАНИЯ</div>
+        <p class="card-sub">становится более сильным брендом с каждым решённым инцидентом</p>
+      </div>
+    </div>
+
+    <div class="section-divider fade-in"></div>
+
+    <div class="fade-in body-text" style="margin-bottom:24px;">
+      <p>Каждая ситуация, решённая по ДОБРО, делает ресторан сильнее.</p>
+    </div>
+
+    <!-- Big table -->
+    <div class="fade-in" style="margin-bottom:48px;overflow-x:auto;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Направление</th>
+            <th>Что меняется с ДОБРО</th>
+            <th>Конкретный результат</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ЛЮДИ</strong></td>
+            <td>Сотрудники перестают бояться жалоб. Знают алгоритм → меньше стресса</td>
+            <td>Текучесть снижается. Уверенность растёт</td>
+          </tr>
+          <tr>
+            <td><strong>ПРОДУКТЫ</strong></td>
+            <td>Каждая жалоба, списанная по ДОБРО, — сигнал для кухни</td>
+            <td>Меньше ошибок по сборке = меньше списаний</td>
+          </tr>
+          <tr>
+            <td><strong>ПРОДАЖИ</strong></td>
+            <td>Решённый инцидент = Гость возвращается + приводит друзей</td>
+            <td>1 спасённый Гость = + несколько чеков в месяц</td>
+          </tr>
+          <tr>
+            <td><strong>ЧИСТОТА И ОБОРУДОВАНИЕ</strong></td>
+            <td>Жалоба на грязь через ДОБРО ведёт к анализу причин, а не просто к уборке «для галочки»</td>
+            <td>Ресторан чище. Оборудование вовремя ремонтируют</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fade-in body-text" style="margin-bottom:12px;">
+      <p>Всё это начинается с тебя. С твоих действий в моменте.</p>
+      <p>А теперь — шаги.</p>
+      <p><strong>ДОБРО — это твоя пошаговая инструкция в ситуации, когда Гость недоволен.</strong></p>
+    </div>
+
+    <!-- ДОБРО table -->
+    <div class="fade-in" style="margin-bottom:48px;background:#F5EBDC;border-radius:20px;padding:28px 32px;">
+      <table class="dobro-table">
+        <tbody>
+          <tr>
+            <td class="dobro-letter-cell">Д</td>
+            <td class="dobro-desc">Доверься Гостю</td>
+          </tr>
+          <tr>
+            <td class="dobro-letter-cell">О</td>
+            <td class="dobro-desc">Определи проблему</td>
+          </tr>
+          <tr>
+            <td class="dobro-letter-cell">Б</td>
+            <td class="dobro-desc">Без оправданий извинись</td>
+          </tr>
+          <tr>
+            <td class="dobro-letter-cell">Р</td>
+            <td class="dobro-desc">Реши на месте</td>
+          </tr>
+          <tr>
+            <td class="dobro-letter-cell">О</td>
+            <td class="dobro-desc">Отметь важность обратной связи</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-divider fade-in"></div>
+
+    <!-- Gallery -->
+    <div class="fade-in" style="margin-bottom:48px;">
+      <div class="gallery-wrap">
+        <div class="gallery-track" id="gallery-track">
+          <div class="gallery-slide"><div class="slide-inner">Фото 1 — будет добавлено позже</div></div>
+          <div class="gallery-slide"><div class="slide-inner">Фото 2 — будет добавлено позже</div></div>
+          <div class="gallery-slide"><div class="slide-inner">Фото 3 — будет добавлено позже</div></div>
+          <div class="gallery-slide"><div class="slide-inner">Фото 4 — будет добавлено позже</div></div>
+          <div class="gallery-slide"><div class="slide-inner">Фото 5 — будет добавлено позже</div></div>
+        </div>
+      </div>
+      <div class="gallery-controls">
+        <button class="gallery-btn" onclick="galleryMove(-1)">&#8592;</button>
+        <div class="gallery-dots" id="gallery-dots">
+          <div class="gallery-dot active" onclick="galleryIdx=0;renderGallery()"></div>
+          <div class="gallery-dot" onclick="galleryIdx=1;renderGallery()"></div>
+          <div class="gallery-dot" onclick="galleryIdx=2;renderGallery()"></div>
+          <div class="gallery-dot" onclick="galleryIdx=3;renderGallery()"></div>
+          <div class="gallery-dot" onclick="galleryIdx=4;renderGallery()"></div>
+        </div>
+        <button class="gallery-btn" onclick="galleryMove(1)">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="fade-in body-text">
+      <p>ДОБРО — твоя опора. А теперь переходим к практике — разберём, как работать с инцидентами.</p>
+    </div>
+
+    <div class="next-row">
+      <button class="btn-next" onclick="navigateTo('block3')">
+        Далее
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     БЛОК 3. РАБОТА С ИНЦИДЕНТАМИ
+════════════════════════════════════════════════════ -->
+<div id="page-block3" class="page">
+  <div class="page-banner" style="background:linear-gradient(135deg,#FFAA00 0%,#FF8732 100%);padding-top:64px;">
+    <div class="banner-label">
+      <h1 style="color:#502314;font-size:clamp(28px,5vw,50px);margin:0;position:relative;">РАБОТА С ИНЦИДЕНТАМИ</h1>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- ── INTERACTIVE 1: Order trainer ── -->
+    <div class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;">Тренажёр</p>
+      <p style="font-size:17px;font-weight:700;margin:0 0 6px;"><strong>Ситуация:</strong> к тебе подходит Гость и говорит: «Я жду заказ уже 10 минут! Вы тут что вообще делаете!»</p>
+      <p style="font-size:15px;margin:0 0 20px;opacity:0.8;">Как ты ответишь Гостю? <strong>Расставь фрагменты фраз в верном порядке</strong> — перетащи карточки.</p>
+
+      <div class="sortable-list" id="sortable-list">
+        <div class="sort-item" data-idx="0" draggable="true">
+          <span class="sort-handle">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg>
+          </span>
+          <span class="sort-num">1</span>
+          «Сейчас проверю ваш заказ, он будет готов вне очереди»
+        </div>
+        <div class="sort-item" data-idx="1" draggable="true">
+          <span class="sort-handle">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg>
+          </span>
+          <span class="sort-num">2</span>
+          «Вы правы, это долго»
+        </div>
+        <div class="sort-item" data-idx="2" draggable="true">
+          <span class="sort-handle">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg>
+          </span>
+          <span class="sort-num">3</span>
+          «Примите, пожалуйста, наш комплемент — мороженое, в качестве извинения»
+        </div>
+        <div class="sort-item" data-idx="3" draggable="true">
+          <span class="sort-handle">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg>
+          </span>
+          <span class="sort-num">4</span>
+          «Простите нас, пожалуйста»
+        </div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <button class="btn-check" onclick="checkSortOrder()">Проверить</button>
+      </div>
+      <div id="sort-feedback" class="feedback-box"></div>
+    </div>
+
+    <!-- Analysis (shown after submit) -->
+    <div id="sort-analysis" class="fade-in hidden" style="margin-bottom:40px;">
+      <h3 style="font-size:20px;margin-bottom:20px;">Что сделал сотрудник на каждом шаге:</h3>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</div>
+          <div style="font-size:15px;padding-top:5px;"><strong>Диагностировал настроение</strong> — понял, что Гость зол и ему важно признать его правоту</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</div>
+          <div style="font-size:15px;padding-top:5px;"><strong>Не нарушил принципы</strong> — не стал спорить, оправдываться или паниковать</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">3</div>
+          <div style="font-size:15px;padding-top:5px;"><strong>Определил алгоритм</strong> — для долгого ожидания &gt;8 минут нужно извиниться, ускорить заказ и дать комплемент</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">4</div>
+          <div style="font-size:15px;padding-top:5px;"><strong>Принял решение</strong> — предложил комплемент Гостю и ускорил заказ</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sort-next-btn" style="display:none;margin-bottom:40px;">
+      <button class="btn-secondary" onclick="document.getElementById('video-section').classList.remove('hidden');this.closest('div').style.display='none';">
+        Продолжить
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- ── INTERACTIVE 2: Video mood quiz ── -->
+    <div id="video-section" class="hidden">
+      <div class="section-divider"></div>
+
+      <div class="fade-in body-text" style="margin-bottom:32px;">
+        <p>А теперь разберём <strong>первый шаг</strong> подробнее — как определять настроение Гостя.</p>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="video-quiz-step active fade-in" style="margin-bottom:32px;">
+        <div class="video-placeholder" style="margin-bottom:20px;">
+          <div class="play-icon">
+            <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <p>Видео 1 — будет добавлено позже</p>
+        </div>
+        <p style="font-size:16px;font-weight:700;margin-bottom:12px;">Какой это Гость?</p>
+        <div class="answer-choices">
+          <button class="answer-btn" onclick="answerVideo(this,0,'спокойный')">Спокойный</button>
+          <button class="answer-btn" onclick="answerVideo(this,0,'расстроенный')">Расстроенный</button>
+          <button class="answer-btn" onclick="answerVideo(this,0,'злой')">Злой</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="video-quiz-step fade-in" style="margin-bottom:32px;">
+        <div class="video-placeholder" style="margin-bottom:20px;">
+          <div class="play-icon">
+            <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <p>Видео 2 — будет добавлено позже</p>
+        </div>
+        <p style="font-size:16px;font-weight:700;margin-bottom:12px;">Какой это Гость?</p>
+        <div class="answer-choices">
+          <button class="answer-btn" onclick="answerVideo(this,1,'раздражённый')">Раздражённый</button>
+          <button class="answer-btn" onclick="answerVideo(this,1,'расстроенный')">Расстроенный</button>
+          <button class="answer-btn" onclick="answerVideo(this,1,'агрессивный')">Агрессивный</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="video-quiz-step fade-in" style="margin-bottom:32px;">
+        <div class="video-placeholder" style="margin-bottom:20px;">
+          <div class="play-icon">
+            <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <p>Видео 3 — будет добавлено позже</p>
+        </div>
+        <p style="font-size:16px;font-weight:700;margin-bottom:12px;">Какой это Гость?</p>
+        <div class="answer-choices">
+          <button class="answer-btn" onclick="answerVideo(this,2,'спокойный')">Спокойный</button>
+          <button class="answer-btn" onclick="answerVideo(this,2,'расстроенный')">Расстроенный</button>
+          <button class="answer-btn" onclick="answerVideo(this,2,'злой')">Злой</button>
+        </div>
+      </div>
+
+      <!-- After quiz done -->
+      <div id="video-quiz-done" class="hidden fade-in">
+        <p style="font-size:16px;color:#198737;font-weight:700;margin-bottom:24px;">✓ Ты уже видишь разницу. Осталось понять, что важно каждому Гостю.</p>
+
+        <!-- Mood table -->
+        <div style="overflow-x:auto;margin-bottom:48px;">
+          <table class="data-table">
+            <thead>
+              <tr><th>Состояние</th><th>Что важно Гостю</th><th>Твои слова</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Спокойный</strong></td>
+                <td>Сочувствие, признание проблемы</td>
+                <td>«Мне жаль, что так вышло. Я понимаю Вас»</td>
+              </tr>
+              <tr>
+                <td><strong>Расстроенный</strong></td>
+                <td>Скорость, уважение к его времени</td>
+                <td>«Сейчас всё исправлю. Быстро»</td>
+              </tr>
+              <tr>
+                <td><strong>Злой / Раздражённый</strong></td>
+                <td>Признать его правоту, дать выговориться</td>
+                <td>«Вы правы. Это недопустимо. Мы исправим»</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Speech bubble -->
+        <div class="fade-in speech-wrap" style="margin-bottom:40px;">
+          <div class="speech-avatar">Фото<br>позже</div>
+          <div class="speech-bubble">«Хорошо, настроение я понял. А что мне делать дальше?»</div>
+        </div>
+
+        <div class="fade-in body-text" style="margin-bottom:24px;">
+          <p>Очень правильный вопрос.<br>А дальше нам нужно понять, как работать с конкретным инцидентом.</p>
+          <p>Все инциденты делятся на три уровня:</p>
+        </div>
+
+        <!-- Image placeholder -->
+        <div class="fade-in image-placeholder" style="margin-bottom:32px;">
+          <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 8px;display:block;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
+          <p style="margin:0;font-size:14px;">Картинка: три уровня инцидентов — будет добавлена позже</p>
+        </div>
+
+        <div class="fade-in" style="margin-bottom:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <span style="font-size:16px;">Скачай памятку, чтобы не потерять.</span>
+          <a class="btn-download" href="#" download>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+            Скачать памятку
+          </a>
+        </div>
+
+        <div class="fade-in body-text" style="margin-bottom:24px;">
+          <p>Когда ты определил уровень инцидента, нужно выбрать инструмент. Их два.</p>
+        </div>
+
+        <!-- Tools table -->
+        <div class="fade-in" style="overflow-x:auto;margin-bottom:40px;">
+          <table class="data-table">
+            <thead>
+              <tr><th></th><th>Комплемент</th><th>Замена</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Что это</strong></td>
+                <td>Подарок от компании сверх заказа</td>
+                <td>Новое блюдо вместо испорченного</td>
+              </tr>
+              <tr>
+                <td><strong>Когда даём</strong></td>
+                <td>В любой ситуации как жест извинений</td>
+                <td>Когда Гость недоволен качеством блюда или ошибкой в приготовлении</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="fade-in body-text" style="margin-bottom:16px;">
+          <p>А теперь подробнее про каждый инструмент. Как выбрать комплемент, как провести замену и что делать в нестандартных ситуациях — разберём в следующем блоке.</p>
+        </div>
+
+        <div class="next-row">
+          <button class="btn-next" onclick="navigateTo('hub')">
+            Далее
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     HUB — БЛОК 4: ТРИ РАЗДЕЛА
+════════════════════════════════════════════════════ -->
+<div id="page-hub" class="page">
+  <div class="page-banner" style="background:linear-gradient(135deg,#198737 0%,#502314 100%);padding-top:64px;">
+    <div class="banner-label">
+      <h1 style="color:#F5EBDC;font-size:clamp(28px,5vw,50px);margin:0;position:relative;">ЗАМЕНА И КОМПЛЕМЕНТ</h1>
+      <p style="color:#F5EBDC;opacity:0.75;font-family:'Roboto',sans-serif;font-size:16px;position:relative;margin:8px 0 0;">Выбери раздел и изучи его. Разделы открываются по очереди.</p>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="fade-in hub-grid" style="margin-bottom:48px;">
+      <!-- Section 1 -->
+      <div class="hub-card" id="hub-card-1" onclick="goToSection(1)">
+        <div class="hub-icon" style="background:#FF8732;">
+          <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v4H4zm0 8h8v8H4zm12 0h4v4h-4zm0-4h4"/></svg>
+        </div>
+        <h3>Замена + Комплемент</h3>
+        <p>Когда и как заменять блюдо</p>
+        <div class="done-badge">
+          <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+      </div>
+      <!-- Section 2 -->
+      <div class="hub-card locked" id="hub-card-2" onclick="goToSection(2)">
+        <div class="lock-badge">
+          <svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="hub-icon" style="background:#FFAA00;">
+          <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3>Комплемент</h3>
+        <p>Как выбрать и оформить</p>
+        <div class="done-badge">
+          <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+      </div>
+      <!-- Section 3 -->
+      <div class="hub-card locked" id="hub-card-3" onclick="goToSection(3)">
+        <div class="lock-badge">
+          <svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="hub-icon" style="background:#D62300;">
+          <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <h3>Особые случаи</h3>
+        <p>Злоупотребления и нестандартные ситуации</p>
+        <div class="done-badge">
+          <svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div id="hub-next-row">
+      <button class="btn-next" onclick="navigateTo('block8')">
+        Далее
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     РАЗДЕЛ 1. ЗАМЕНА + КОМПЛЕМЕНТ
+════════════════════════════════════════════════════ -->
+<div id="page-section1" class="page">
+  <div class="page-banner" style="background:linear-gradient(135deg,#FF8732 0%,#FFAA00 100%);padding-top:64px;">
+    <div class="banner-label">
+      <h1 style="color:#fff;font-size:clamp(26px,5vw,46px);margin:0;position:relative;">ЗАМЕНА + КОМПЛЕМЕНТ</h1>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <button class="back-to-hub" onclick="navigateTo('hub')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Назад к выбору раздела
+    </button>
+
+    <!-- INTERACTIVE: Sorting -->
+    <div class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;">Задание: разминка</p>
+      <p style="font-size:16px;font-weight:700;margin:0 0 16px;">Разнеси жалобы Гостя по двум инструментам:</p>
+
+      <p style="font-size:14px;font-weight:500;margin:0 0 8px;opacity:0.7;">Перетащи каждую карточку в нужную колонку</p>
+      <div class="zone-pool" id="pool1">
+        <div class="drag-chip" id="c1a" data-key="ожидание">Жду заказ уже 10 минут</div>
+        <div class="drag-chip" id="c1b" data-key="грязь">В зале грязно</div>
+        <div class="drag-chip" id="c1c" data-key="столик">Не убран столик</div>
+        <div class="drag-chip" id="c1d" data-key="нагрубили">Мне нагрубили на кассе</div>
+        <div class="drag-chip" id="c1e" data-key="холодный">Бургер холодный</div>
+        <div class="drag-chip" id="c1f" data-key="сухая">Котлета сухая</div>
+        <div class="drag-chip" id="c1g" data-key="пересолена">Картошка фри пересолена</div>
+        <div class="drag-chip" id="c1h" data-key="кола">Вместо колы течёт просто вода</div>
+      </div>
+
+      <div class="drop-zones-row" style="margin-top:16px;">
+        <div>
+          <div class="drop-zone-label" style="color:#FFAA00;">
+            <svg width="14" height="14" fill="#FFAA00" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Комплемент
+          </div>
+          <div class="drop-zone" id="zone1a"></div>
+        </div>
+        <div>
+          <div class="drop-zone-label" style="color:#D62300;">
+            <svg width="14" height="14" fill="none" stroke="#D62300" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v4H4zm0 8h8v8H4z"/></svg>
+            Замена + Комплемент
+          </div>
+          <div class="drop-zone" id="zone1b"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <button class="btn-check" onclick="checkZone('pool1','zone1a','zone1b',['ожидание','грязь','столик','нагрубили'],['холодный','сухая','пересолена','кола'],'zone1-feedback','zone1-next')">Проверить</button>
+      </div>
+      <div id="zone1-feedback" class="feedback-box"></div>
+    </div>
+
+    <div id="zone1-next" class="hidden fade-in">
+      <!-- Content continues -->
+      <div class="body-text" style="margin-bottom:24px;">
+        <p>Ты уже чувствуешь разницу: проблемы с едой требуют замены + комплемента, а проблемы сервиса — только комплемента. А теперь разберём замену подробнее.</p>
+        <p>Замена — это когда Гость получает новое блюдо вместо того, которое ему не понравилось. Бесплатно. Потому что ошибка была на нашей стороне:</p>
+        <ul>
+          <li>Блюдо холодное или пережаренное</li>
+          <li>Перепутали состав</li>
+          <li>Инородный предмет</li>
+          <li>Блюдо не соответствует заказу</li>
+        </ul>
+      </div>
+
+      <div class="callout" style="margin-bottom:32px;">
+        <strong>Важно:</strong> Замена без комплемента не бывает. Если ты меняешь блюдо — всегда добавляй комплемент в качестве извинения.
+      </div>
+
+      <!-- Audio dialogue -->
+      <div class="fade-in" style="margin-bottom:8px;">
+        <p style="font-size:16px;font-weight:700;">Давай посмотрим на примере, как это работает — включай аудио.</p>
+        <div class="audio-player" style="margin-bottom:24px;">
+          <button class="audio-play-btn" title="Воспроизвести">
+            <svg width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div style="flex:1;">
+            <div class="audio-title">Аудиодиалог: замена блюда</div>
+            <div class="audio-track"></div>
+            <div class="audio-meta">Аудио будет добавлено позже</div>
+          </div>
+        </div>
+
+        <div style="border-radius:16px;border:2px solid #F5EBDC;padding:20px;display:flex;flex-direction:column;gap:4px;">
+          <div class="dialogue-line">
+            <div class="dialogue-badge guest">Гость</div>
+            <div class="dialogue-text">«Бургер невкусный, я не буду это есть»</div>
+          </div>
+          <div class="dialogue-line highlight">
+            <div class="dialogue-badge">Д</div>
+            <div>
+              <div class="dialogue-speaker">Ты (Д — Доверься):</div>
+              <div class="dialogue-text">«Я понимаю Вас»</div>
+            </div>
+          </div>
+          <div class="dialogue-line highlight">
+            <div class="dialogue-badge">О</div>
+            <div>
+              <div class="dialogue-speaker">Ты (О — Определи):</div>
+              <div class="dialogue-text">«Уточните, пожалуйста, что именно не так: холодное или что-то другое?»</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <div class="dialogue-badge guest">Гость</div>
+            <div class="dialogue-text">«Да, бургер холодный»</div>
+          </div>
+          <div class="dialogue-line highlight">
+            <div class="dialogue-badge">Б</div>
+            <div>
+              <div class="dialogue-speaker">Ты (Б — Без оправданий):</div>
+              <div class="dialogue-text">«Очень жаль, что так вышло. Приносим искренние извинения»</div>
+            </div>
+          </div>
+          <div class="dialogue-line highlight">
+            <div class="dialogue-badge">Р</div>
+            <div>
+              <div class="dialogue-speaker">Ты (Р — Реши):</div>
+              <div class="dialogue-text">«Сейчас заменим на новый горячий бургер. И в качестве извинений — примите, пожалуйста, комплемент за наш счёт. Что Вы предпочитаете: десерт или закуску?»</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <div class="dialogue-badge guest">Гость</div>
+            <div class="dialogue-text">«Хорошо, давайте мороженое»</div>
+          </div>
+          <div class="dialogue-line highlight">
+            <div class="dialogue-badge">О</div>
+            <div>
+              <div class="dialogue-speaker">Ты (О — Отметь):</div>
+              <div class="dialogue-text">«Спасибо за честный отзыв. Нам это важно, мы проверим приготовление»</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Employee question -->
+      <div class="fade-in speech-wrap" style="margin:32px 0;">
+        <div class="speech-avatar">Фото<br>позже</div>
+        <div class="speech-bubble">«Это сколько же я потеряю, если каждому буду продукт заменять?»</div>
+      </div>
+
+      <div class="fade-in body-text" style="margin-bottom:24px;">
+        <p><strong>Нисколько.</strong></p>
+        <p>Замена блюда и комплемент никак не влияет ни на твою зарплату, ни на ресторан. Это инструмент, который компания даёт тебе, чтобы удержать Гостя. Потерять одного Гостя — намного дороже, чем заменить один бургер и выдать комплемент.</p>
+        <p>И делать это может каждый обученный сотрудник прилавка, не только АУП.</p>
+        <p>Чтобы провести замену, нужно:</p>
+      </div>
+
+      <ul class="steps-list fade-in" style="margin-bottom:32px;">
+        <li><div class="step-num">1</div> Зайти в PLS</li>
+        <li><div class="step-num">2</div> Выбрать журнал «Потери на производстве»</li>
+        <li><div class="step-num">3</div> Указать нужное блюдо и причину: «ДОБРО: замена продукции по жалобе Гостя»</li>
+      </ul>
+
+      <div class="callout fade-in" style="margin-bottom:40px;">
+        <strong>Важно:</strong> Если одно и то же блюдо приходится заменять часто — это сигнал для всей команды. Значит, что-то не так с приготовлением или хранением. Это нужно обсудить на ближайшей пятиминутке.
+      </div>
+
+      <!-- FAQ -->
+      <div class="fade-in" style="margin-bottom:40px;">
+        <h3 style="font-size:20px;margin-bottom:16px;">FAQ</h3>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            А если я ошибусь и спишу не то блюдо?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">В этом случае необходимо сторнировать журнал. Для этого АУП ресторана должен обратиться к своему бухгалтеру ОУТО или в группу рассылки Товары.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Гость жалуется, но блюдо выглядит нормально. Мне списывать?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Если Гостю что-то не нравится — это его правда. Мы не спорим. Списывайте на «ДОБРО».</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Можно ли списать на «ДОБРО», если мы сами заметили ошибку при сборке, но Гость ещё не жаловался?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Да, можно. Это скорее «ошибка сотрудника», чем жалоба Гостя. Но если вы переделываете блюдо для Гостя, чтобы он не заметил ошибки — это всё равно забота о Госте. Если такие ошибки повторяются, это повод провести дополнительное обучение и обсудить на пятиминутке.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            А если Гость просит замену, но блюдо съедено на 90%?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Это сложная этическая ситуация. Если съедено почти всё — скорее всего, Гостю нужен только комплемент, а не замена. Решайте по ситуации или зовите руководителя.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            А если я не успел списать блюдо сразу, а Гостю уже отдал новое?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Ничего страшного. Списать можно постфактум, как только освободитесь. Главное — сделайте это в течение смены.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            А если я заменяю блюдо, нужно ли давать ещё и комплемент?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Да, при замене всегда в качестве извинений мы предлагаем Гостю комплемент.</div></div>
+        </div>
+      </div>
+
+      <div class="next-row">
+        <button class="btn-next" onclick="completeSection(1)">
+          Готово — вернуться к выбору раздела
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     РАЗДЕЛ 2. КОМПЛЕМЕНТ
+════════════════════════════════════════════════════ -->
+<div id="page-section2" class="page">
+  <div class="page-banner" style="background:linear-gradient(135deg,#FFAA00 0%,#FF8732 100%);padding-top:64px;">
+    <div class="banner-label">
+      <h1 style="color:#502314;font-size:clamp(26px,5vw,48px);margin:0;position:relative;">КОМПЛЕМЕНТ</h1>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <button class="back-to-hub" onclick="navigateTo('hub')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Назад к выбору раздела
+    </button>
+
+    <!-- INTERACTIVE: Matching quiz -->
+    <div class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;">Задание: разминка</p>
+      <p style="font-size:16px;font-weight:700;margin:0 0 6px;">Проверь себя.</p>
+      <p style="font-size:15px;margin:0 0 20px;opacity:0.8;">К тебе подходят Гости с разными жалобами. Какой комплемент ты предложишь в каждой ситуации? Выбери правильный ответ.</p>
+
+      <div class="match-question" id="mq0">
+        <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Грязь в зале»</p>
+        <div class="match-options">
+          <button class="match-btn" onclick="pickMatch(this,0,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
+          <button class="match-btn" onclick="pickMatch(this,0,'десерт')">Напиток или десерт</button>
+          <button class="match-btn" onclick="pickMatch(this,0,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
+        </div>
+      </div>
+      <div class="match-question" id="mq1">
+        <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Ожидание заказа более 9 минут»</p>
+        <div class="match-options">
+          <button class="match-btn" onclick="pickMatch(this,1,'десерт')">Напиток или десерт</button>
+          <button class="match-btn" onclick="pickMatch(this,1,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
+          <button class="match-btn" onclick="pickMatch(this,1,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
+        </div>
+      </div>
+      <div class="match-question" id="mq2">
+        <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Нагрубил сотрудник»</p>
+        <div class="match-options">
+          <button class="match-btn" onclick="pickMatch(this,2,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
+          <button class="match-btn" onclick="pickMatch(this,2,'десерт')">Напиток или десерт</button>
+          <button class="match-btn" onclick="pickMatch(this,2,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
+        </div>
+      </div>
+
+      <div id="match-feedback" class="feedback-box"></div>
+    </div>
+
+    <div id="match-next" class="hidden fade-in">
+      <div class="body-text" style="margin-bottom:24px;">
+        <p>Верно. Дальше разберём комплементы подробнее.</p>
+        <p>Комплемент — это подарок от компании. Гость получает его бесплатно, сверх заказа. Его можно выдавать отдельно от замены.</p>
+        <p>Комплемент уместен почти в любой ситуации, когда Гость недоволен:</p>
+        <ul>
+          <li>Долгое ожидание</li>
+          <li>Грязь в зале или туалете</li>
+          <li>Проблема с оплатой</li>
+          <li>Ошибка в сборке (дополнительно к замене)</li>
+          <li>Просто как жест извинений</li>
+        </ul>
+      </div>
+
+      <!-- Complement types table -->
+      <div class="fade-in" style="overflow-x:auto;margin-bottom:40px;">
+        <h3 style="font-size:18px;margin-bottom:12px;">Какие бывают комплементы?</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Тип</th><th>Когда давать</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Сладкий десерт</strong></td><td>Гость сыт, дети, жаркая погода, финал визита</td></tr>
+            <tr><td><strong>Закуска / гарнир</strong></td><td>Гость голоден, компания подростков</td></tr>
+            <tr><td><strong>Напиток</strong></td><td>Любая ситуация как базовый жест</td></tr>
+            <tr><td><strong>Бургер</strong></td><td>Серьёзная проблема, разгневанный гость</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:14px;margin-top:10px;opacity:0.7;">Эта матрица — рекомендация, а не жёсткое правило. Ты можешь выдать любой комплемент из списка, если считаешь, что это лучше решит ситуацию.</p>
+      </div>
+
+      <!-- Video placeholder -->
+      <div class="fade-in video-placeholder" style="margin-bottom:24px;">
+        <div class="play-icon">
+          <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <p>Видео: диалог с Гостем — будет добавлено позже</p>
+      </div>
+
+      <div class="fade-in" style="border-radius:16px;border:2px solid #F5EBDC;padding:20px;margin-bottom:24px;display:flex;flex-direction:column;gap:4px;">
+        <div class="dialogue-line">
+          <div class="dialogue-badge guest">Гость</div>
+          <div class="dialogue-text">«Я уже 10 минут жду заказ. Это никуда не годится»</div>
+        </div>
+        <div class="dialogue-line highlight">
+          <div class="dialogue-badge" style="font-size:11px;font-family:'Roboto',sans-serif;font-weight:700;">Ты</div>
+          <div class="dialogue-text">«Я понимаю Вас. Вы правы. Простите нас, пожалуйста. Ваш заказ уже готовится вне очереди. И примите, пожалуйста, наш комплемент — мороженое, в качестве извинения»</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-badge guest">Гость</div>
+          <div class="dialogue-text">«Спасибо»</div>
+        </div>
+        <div class="dialogue-line highlight">
+          <div class="dialogue-badge" style="font-size:11px;font-family:'Roboto',sans-serif;font-weight:700;">Ты</div>
+          <div class="dialogue-text">«Спасибо, что сказали. Нам это важно»</div>
+        </div>
+      </div>
+
+      <!-- Video placeholder 2 -->
+      <div class="fade-in video-placeholder" style="margin-bottom:24px;">
+        <div class="play-icon">
+          <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <p>Видео: технически как пробить комплемент — будет добавлено позже</p>
+      </div>
+
+      <div class="callout fade-in" style="margin-bottom:16px;">
+        <strong>Важно:</strong> Если появилось предупреждение «Превышение лимита» — нажми «Продолжить» и сообщи менеджеру. Лимиты — не запрет, а ориентир. Превышение допустимо, главное — использовать инструмент честно, для заботы о Госте.
+      </div>
+
+      <div class="callout green fade-in" style="margin-bottom:40px;">
+        <strong>Главное / итог:</strong> комплемент — это подарок. Бесплатный. Без лишних списаний. Под своей картой. И без штрафов.
+      </div>
+
+      <!-- FAQ -->
+      <div class="fade-in" style="margin-bottom:40px;">
+        <h3 style="font-size:20px;margin-bottom:16px;">FAQ</h3>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            А если я ошибся и пробил не тот комплемент?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Позовите менеджера. Ошибки бывают, но исправлять их должен руководитель, чтобы не сломать учёт.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Гость просит два комплемента, говорит, что иначе уйдёт злой. Что делать?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Объясните правила: «К сожалению, мне потребуется помощь руководителя, давайте я приглашу менеджера, и мы решим, как лучше поступить в вашей ситуации». Не нарушайте правило ради скандала — лучше позвать старшего.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            У меня нет своей карты, а менеджер занят. Гость ждёт.
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Попросите любого коллегу, у которого есть карта и доступ к кассе, пробить комплемент за вас. Главное — не оставляйте Гостя без внимания.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Комплемент пробил, а продукт закончился на линии. Что давать?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">Комплемент — это конкретное блюдо. Если его нет, предложите Гостю равноценную замену из списка комплементов или позовите менеджера для решения.</div></div>
+        </div>
+      </div>
+
+      <div class="next-row">
+        <button class="btn-next" onclick="completeSection(2)">
+          Готово — вернуться к выбору раздела
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Show match-next if already solved -->
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     РАЗДЕЛ 3. ОСОБЫЕ СЛУЧАИ
+════════════════════════════════════════════════════ -->
+<div id="page-section3" class="page">
+  <div class="page-banner" style="background:linear-gradient(135deg,#D62300 0%,#502314 100%);padding-top:64px;">
+    <div class="banner-label">
+      <h1 style="color:#F5EBDC;font-size:clamp(26px,5vw,48px);margin:0;position:relative;">ОСОБЫЕ СЛУЧАИ</h1>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <button class="back-to-hub" onclick="navigateTo('hub')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Назад к выбору раздела
+    </button>
+
+    <div class="fade-in body-text" style="margin-bottom:32px;">
+      <p>Мы выросли на принципе «Гость всегда прав». Но в жизни бывают ситуации, когда Гость пытается этим принципом злоупотребить.</p>
+    </div>
+
+    <div class="callout red fade-in" style="margin-bottom:16px;">
+      <strong>Важно понять:</strong> Это редкость. 99% Гостей честны. Но мы должны быть готовы к этому 1%, чтобы защитить себя и компанию, но сделать это максимально вежливо и достойно.
+    </div>
+
+    <div class="callout fade-in" style="margin-bottom:32px;">
+      <strong>Наша задача:</strong> Не дать комплемент там, где его быть не должно, но при этом не унизить Гостя и не спровоцировать скандал.
+    </div>
+
+    <div class="fade-in body-text" style="margin-bottom:24px;">
+      <p><strong>Как распознать злоупотребление?</strong></p>
+      <ul>
+        <li>Регулярные жалобы от одного Гостя</li>
+        <li>Сам просит комплемент, не даёт предложить решение</li>
+        <li>История меняется или звучит странно</li>
+        <li>Давит на жалость</li>
+      </ul>
+      <p>Даже если Гость злоупотребляет, ДОБРО работает — просто без комплемента.</p>
+      <p>В этом случае твоя задача — вежливо и спокойно отказать, сохранив достоинство и бренда, и Гостя.</p>
+    </div>
+
+    <!-- Audio scripts -->
+    <div class="fade-in" style="margin-bottom:40px;">
+      <h3 style="font-size:18px;margin-bottom:16px;">Скрипты ответов</h3>
+
+      <div style="margin-bottom:20px;">
+        <p style="font-size:15px;margin-bottom:8px;"><strong>Гость:</strong> «Я к вам постоянно хожу, а вы даже не цените. Дайте комплемент».</p>
+        <div class="audio-player">
+          <button class="audio-play-btn" title="Воспроизвести">
+            <svg width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div style="flex:1;">
+            <div class="audio-title">Скрипт 1</div>
+            <div class="audio-track"></div>
+            <div class="audio-meta">Аудио будет добавлено позже</div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:12px;">
+          «Мы ценим вашу обратную связь и благодарим, что поделились своим мнением. У нас строгий учёт комплементов, и они предоставляются по внутренним правилам. Приношу извинения».
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:15px;margin-bottom:8px;"><strong>Гость:</strong> «Дайте мне ещё мороженое. Я же только что жаловался на ожидание».</p>
+        <div class="audio-player">
+          <button class="audio-play-btn" title="Воспроизвести">
+            <svg width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div style="flex:1;">
+            <div class="audio-title">Скрипт 2</div>
+            <div class="audio-track"></div>
+            <div class="audio-meta">Аудио будет добавлено позже</div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:12px;">
+          «Давайте я сейчас приглашу руководителя, и мы вместе разберём вашу ситуацию в рамках наших правил».
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE: Do / Don't sort -->
+    <div class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;">Задание</p>
+      <p style="font-size:16px;font-weight:700;margin:0 0 6px;">Перед тобой список действий в ситуации, когда Гость злоупотребляет.</p>
+      <p style="font-size:15px;margin:0 0 16px;opacity:0.8;">Распредели их в две колонки: «Что делать» и «Что НЕ делать» — перетащи карточки.</p>
+
+      <div class="zone-pool" id="pool3">
+        <div class="drag-chip" id="c3a" data-key="спокойный-тон">Сохранять спокойный тон</div>
+        <div class="drag-chip" id="c3b" data-key="правила">Ссылаться на правила учёта</div>
+        <div class="drag-chip" id="c3c" data-key="руководитель">Предложить позвать руководителя</div>
+        <div class="drag-chip" id="c3d" data-key="зафиксировать">Зафиксировать инцидент</div>
+        <div class="drag-chip" id="c3e" data-key="обвинять">Обвинять Гостя во лжи</div>
+        <div class="drag-chip" id="c3f" data-key="обманываете">Говорить «Вы нас обманываете»</div>
+        <div class="drag-chip" id="c3g" data-key="спорить">Спорить и доказывать</div>
+        <div class="drag-chip" id="c3h" data-key="игнорировать">Игнорировать</div>
+      </div>
+
+      <div class="drop-zones-row" style="margin-top:16px;">
+        <div>
+          <div class="drop-zone-label" style="color:#198737;">✓ Что делать</div>
+          <div class="drop-zone" id="zone3a"></div>
+        </div>
+        <div>
+          <div class="drop-zone-label" style="color:#D62300;">✗ Что НЕ делать</div>
+          <div class="drop-zone" id="zone3b"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <button class="btn-check" onclick="checkZone('pool3','zone3a','zone3b',['спокойный-тон','правила','руководитель','зафиксировать'],['обвинять','обманываете','спорить','игнорировать'],'zone3-feedback',null)">Проверить</button>
+      </div>
+      <div id="zone3-feedback" class="feedback-box"></div>
+    </div>
+
+    <div class="next-row">
+      <button class="btn-next" onclick="completeSection(3)">
+        Готово — вернуться к выбору раздела
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     БЛОК 5. ЗАКЛЮЧЕНИЕ
+════════════════════════════════════════════════════ -->
+<div id="page-block8" class="page">
+  <!-- Banner -->
+  <div class="page-banner" style="background:linear-gradient(135deg,#502314 0%,#FF8732 60%,#FFAA00 100%);height:280px;padding-top:64px;">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(30deg,rgba(245,235,220,0.05) 0,rgba(245,235,220,0.05) 1px,transparent 0,transparent 50%);background-size:32px 32px;"></div>
+    <div class="banner-label">
+      <p style="font-family:'Roboto',sans-serif;color:#F5EBDC;opacity:0.8;font-size:15px;position:relative;margin:0 0 8px;">Баннер будет добавлен позже</p>
+      <h1 style="color:#fff;font-size:clamp(32px,6vw,58px);margin:0;position:relative;">ПОЗДРАВЛЯЮ!</h1>
+      <p style="color:#F5EBDC;font-family:'Roboto',sans-serif;font-size:18px;position:relative;margin:8px 0 0;">Ты прошёл весь путь.</p>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="fade-in body-text" style="margin-bottom:40px;">
+      <p>Гостемания — это твоё внимание к тем, кто рядом. Ты научился читать настроение, делать замену, выбирать комплемент и не теряться в сложных ситуациях.</p>
+      <p>Теперь ты готов работать спокойно, уверенно и с душой.</p>
+    </div>
+
+    <div class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 32px;margin-bottom:40px;">
+      <h2 style="font-size:24px;margin:0 0 20px;color:#FF8732;">Помни:</h2>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#FF8732;flex-shrink:0;margin-top:7px;"></div>
+          <p style="margin:0;font-size:16px;">Твоя улыбка и спокойствие решают половину проблемы.</p>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#FF8732;flex-shrink:0;margin-top:7px;"></div>
+          <p style="margin:0;font-size:16px;">Комплемент и замена — не расходы, а инвестиции в лояльность.</p>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#FF8732;flex-shrink:0;margin-top:7px;"></div>
+          <p style="margin:0;font-size:16px;">Ты — лицо компании.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in body-text" style="margin-bottom:48px;">
+      <p style="font-size:20px;font-weight:700;text-align:center;">Гостемания живёт в тебе. Береги Гостя, береги себя и действуй по ДОБРО.</p>
+    </div>
+
+    <div class="fade-in" style="margin-bottom:32px;">
+      <h3 style="font-size:18px;margin-bottom:16px;">Материалы для скачивания:</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a class="btn-download" href="#" download>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+          Памятка по ДОБРО
+        </a>
+        <a class="btn-download" href="#" download>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+          Таблица уровней инцидентов
+        </a>
+      </div>
+    </div>
+
+    <div class="fade-in" style="text-align:center;padding:40px 0;">
+      <button class="btn-next" onclick="navigateTo('home')" style="background:#502314;">
+        На главную
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Scripts -->
+<script src="js/app.js"></script>
+</body>
+</html>
