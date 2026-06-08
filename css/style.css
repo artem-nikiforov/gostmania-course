@@ -1304,6 +1304,118 @@ h1, h2, h3, h4, h5 {
   margin: 0;
 }
 
+/* ══════════════════════════════════════
+   ИНФОГРАФИКА: ТРИ УРОВНЯ ИНЦИДЕНТОВ
+══════════════════════════════════════ */
+.incident-levels {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.incident-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.13);
+}
+
+.incident-card__header {
+  padding: 14px 20px 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.incident-card__num {
+  font-family: 'Flame', sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 5vw, 34px);
+  color: #fff;
+  line-height: 1;
+}
+
+.incident-card__sub {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+}
+
+.incident-card__body {
+  background: #fff;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.incident-card__icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.inc-icon {
+  width: 46px;
+  height: 46px;
+}
+
+.incident-card__divider {
+  width: 2px;
+  min-height: 72px;
+  align-self: stretch;
+  flex-shrink: 0;
+  border-radius: 2px;
+  opacity: 0.22;
+}
+
+.incident-card__info { flex: 1; }
+
+.incident-label {
+  font-family: 'Flame', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 3px;
+  line-height: 1.2;
+}
+
+.incident-card__info p:not(.incident-label) {
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #502314;
+  margin: 0 0 10px;
+}
+.incident-card__info p:last-child { margin-bottom: 0; }
+
+/* Цвета уровней */
+.incident-card--l1 .incident-card__header { background: #198737; }
+.incident-card--l1 .incident-card__divider { background: #198737; }
+.incident-card--l1 .incident-label        { color: #198737; }
+.incident-card--l1 .inc-icon              { color: #198737; }
+
+.incident-card--l2 .incident-card__header { background: #E89B1A; }
+.incident-card--l2 .incident-card__divider { background: #E89B1A; }
+.incident-card--l2 .incident-label        { color: #C8851A; }
+.incident-card--l2 .inc-icon              { color: #E89B1A; }
+
+.incident-card--l3 .incident-card__header { background: #D62300; }
+.incident-card--l3 .incident-card__divider { background: #D62300; }
+.incident-card--l3 .incident-label        { color: #D62300; }
+.incident-card--l3 .inc-icon              { color: #D62300; }
+
+/* Стрелки между уровнями */
+.incident-arrow {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0;
+}
+.incident-arrow--l2 { color: #E89B1A; }
+.incident-arrow--l3 { color: #D62300; }
+
 .cost-infographic__footnote {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;

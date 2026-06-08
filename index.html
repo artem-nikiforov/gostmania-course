@@ -521,15 +521,127 @@
           <p>Все инциденты делятся на три уровня:</p>
         </div>
 
-        <!-- images/block3-incident-levels.jpg -->
-        <div class="fade-in img-slot incident-slot" style="margin-bottom:32px;">
-          <img src="images/block3-incident-levels.jpg" alt="Три уровня инцидентов"
-               onerror="this.style.display='none'">
-          <div class="img-label">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
-            images/block3-incident-levels.jpg
+        <!-- ── ИНФОГРАФИКА: ТРИ УРОВНЯ ИНЦИДЕНТОВ ── -->
+        <div class="fade-in incident-levels" style="margin-bottom:32px;">
+
+          <!-- УРОВЕНЬ 1 -->
+          <div class="incident-card incident-card--l1">
+            <div class="incident-card__header">
+              <span class="incident-card__num">УРОВЕНЬ 1</span>
+              <span class="incident-card__sub">Простой</span>
+            </div>
+            <div class="incident-card__body">
+              <div class="incident-card__icons">
+                <!-- Стакан с трубочкой -->
+                <svg class="inc-icon" viewBox="0 0 44 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="26" y="1" width="4" height="22" rx="2"/>
+                  <path d="M4 17 Q6 12 22 12 Q38 12 40 17 L38 21 L6 21 Z"/>
+                  <path d="M6 21 L10 50 L34 50 L38 21 Z"/>
+                </svg>
+                <!-- Кусок торта -->
+                <svg class="inc-icon" viewBox="0 0 50 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 22 L25 8 L46 22 L46 44 L4 44 Z"/>
+                  <rect x="4" y="20" width="42" height="6" rx="0" opacity="0.25"/>
+                  <circle cx="25" cy="5" r="6"/>
+                  <line x1="25" y1="11" x2="25" y2="8" stroke="white" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="incident-card__divider"></div>
+              <div class="incident-card__info">
+                <p class="incident-label">Примеры:</p>
+                <p>ожидание 4–8 мин, грязь, оплата, чек</p>
+                <p class="incident-label">Действие:</p>
+                <p>извиниться + решить на месте</p>
+              </div>
+            </div>
           </div>
+
+          <!-- Стрелка → Уровень 2 -->
+          <div class="incident-arrow incident-arrow--l2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4v12m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M4 20h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+          </div>
+
+          <!-- УРОВЕНЬ 2 -->
+          <div class="incident-card incident-card--l2">
+            <div class="incident-card__header">
+              <span class="incident-card__num">УРОВЕНЬ 2</span>
+              <span class="incident-card__sub">Сложный</span>
+            </div>
+            <div class="incident-card__body">
+              <div class="incident-card__icons">
+                <!-- Картошка фри -->
+                <svg class="inc-icon" viewBox="0 0 46 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="10" y="6"  width="5" height="20" rx="2.5"/>
+                  <rect x="20" y="2"  width="5" height="24" rx="2.5"/>
+                  <rect x="30" y="6"  width="5" height="20" rx="2.5"/>
+                  <path d="M8 28 L8 24 L38 24 L38 28 L42 50 L4 50 Z"/>
+                </svg>
+                <!-- Бургер -->
+                <svg class="inc-icon" viewBox="0 0 50 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 20 Q4 6 25 6 Q46 6 46 20 Z"/>
+                  <rect x="4" y="20" width="42" height="6" rx="2"/>
+                  <path d="M4 26 Q6 22 12 26 Q18 30 24 26 Q30 22 36 26 Q42 30 46 26 L46 28 L4 28 Z" opacity="0.4"/>
+                  <rect x="6" y="28" width="38" height="6" rx="2"/>
+                  <rect x="4" y="34" width="42" height="8" rx="4"/>
+                </svg>
+              </div>
+              <div class="incident-card__divider"></div>
+              <div class="incident-card__info">
+                <p class="incident-label">Примеры:</p>
+                <p>ожидание &gt;8 мин, ошибка сборки, невкусно / холодно, сдача</p>
+                <p class="incident-label">Действие:</p>
+                <p>извиниться + замена + комплемент</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Стрелка → Уровень 3 -->
+          <div class="incident-arrow incident-arrow--l3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4v12m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M4 20h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+          </div>
+
+          <!-- УРОВЕНЬ 3 -->
+          <div class="incident-card incident-card--l3">
+            <div class="incident-card__header">
+              <span class="incident-card__num">УРОВЕНЬ 3</span>
+              <span class="incident-card__sub">Критический</span>
+            </div>
+            <div class="incident-card__body">
+              <div class="incident-card__icons">
+                <!-- Бургер -->
+                <svg class="inc-icon" viewBox="0 0 50 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 20 Q4 6 25 6 Q46 6 46 20 Z"/>
+                  <rect x="4" y="20" width="42" height="6" rx="2"/>
+                  <path d="M4 26 Q6 22 12 26 Q18 30 24 26 Q30 22 36 26 Q42 30 46 26 L46 28 L4 28 Z" opacity="0.35"/>
+                  <rect x="6" y="28" width="38" height="6" rx="2"/>
+                  <rect x="4" y="34" width="42" height="8" rx="4"/>
+                </svg>
+                <!-- Стакан -->
+                <svg class="inc-icon" viewBox="0 0 44 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="26" y="1" width="4" height="22" rx="2"/>
+                  <path d="M4 17 Q6 12 22 12 Q38 12 40 17 L38 21 L6 21 Z"/>
+                  <path d="M6 21 L10 50 L34 50 L38 21 Z"/>
+                </svg>
+                <!-- Мороженое -->
+                <svg class="inc-icon" viewBox="0 0 44 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 30 L14 50 L30 50 L36 30 Z"/>
+                  <ellipse cx="22" cy="28" rx="14" ry="7"/>
+                  <ellipse cx="22" cy="20" rx="11" ry="7"/>
+                  <ellipse cx="22" cy="13" rx="8"  ry="7"/>
+                </svg>
+              </div>
+              <div class="incident-card__divider"></div>
+              <div class="incident-card__info">
+                <p class="incident-label">Примеры:</p>
+                <p>инородный предмет, вред здоровью, насекомые, кража, порча, грубость</p>
+                <p class="incident-label">Действие:</p>
+                <p>извиниться + замена + комплемент + заявка в SD</p>
+              </div>
+            </div>
+          </div>
+
         </div>
+        <!-- ── / ИНФОГРАФИКА: ТРИ УРОВНЯ ИНЦИДЕНТОВ ── -->
 
         <div class="fade-in" style="margin-bottom:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <span style="font-size:16px;">Скачай памятку, чтобы не потерять.</span>
