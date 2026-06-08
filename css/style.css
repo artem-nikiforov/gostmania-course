@@ -725,7 +725,7 @@ h1, h2, h3, h4, h5 {
   flex-shrink: 0;
   font-size: 11px;
   color: #502314;
-  opacity: 0.6;
+  opacity: 0.8;
   text-align: center;
   font-family: 'Roboto', sans-serif;
 }
@@ -896,7 +896,7 @@ h1, h2, h3, h4, h5 {
 .next-row {
   margin-top: 56px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 /* ── Section back btn ── */
@@ -1423,4 +1423,9 @@ h1, h2, h3, h4, h5 {
   opacity: 0.5;
   margin: 0;
   text-align: center;
+}
+
+
+ul {
+  list-style-type: disc; /* Стандартный круглый буллит */
 }
