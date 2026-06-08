@@ -186,6 +186,61 @@
       <p>Каждая ситуация, решённая по ДОБРО, делает ресторан сильнее.</p>
     </div>
 
+    <!-- ── ИНФОГРАФИКА ДОБРО-КОЛЕСО ── -->
+    <div class="fade-in dobro-wheel-wrap" style="margin-bottom:48px;">
+      <div class="dobro-wheel">
+
+        <!-- Центр -->
+        <div class="dobro-wheel__center">ДОБРО</div>
+
+        <!-- Кольцо -->
+        <div class="dobro-wheel__ring"></div>
+
+        <!-- Плашка: Продукт (сверху) -->
+        <button class="dobro-pill dobro-pill--top dobro-pill--yellow"
+                onclick="openDoproModal('product')">
+          <span class="dobro-pill__dot"></span>
+          <span>Продукт</span>
+        </button>
+
+        <!-- Плашка: Люди (слева) -->
+        <button class="dobro-pill dobro-pill--left dobro-pill--orange"
+                onclick="openDoproModal('people')">
+          <span class="dobro-pill__dot"></span>
+          <span>Люди</span>
+        </button>
+
+        <!-- Плашка: Продажи (справа) -->
+        <button class="dobro-pill dobro-pill--right dobro-pill--blue"
+                onclick="openDoproModal('sales')">
+          <span class="dobro-pill__dot"></span>
+          <span>Продажи<br>и Гости</span>
+        </button>
+
+        <!-- Плашка: Чистота (снизу) -->
+        <button class="dobro-pill dobro-pill--bottom dobro-pill--green"
+                onclick="openDoproModal('clean')">
+          <span class="dobro-pill__dot"></span>
+          <span>Чистота и<br>оборудование</span>
+        </button>
+
+      </div>
+      <p class="dobro-wheel__hint">Нажми на плашку, чтобы узнать подробнее</p>
+    </div>
+
+    <!-- Модальное окно ДОБРО-колесо -->
+    <div id="dobro-modal-overlay" class="dobro-modal-overlay" onclick="closeDoproModal()">
+      <div class="dobro-modal" onclick="event.stopPropagation()">
+        <button class="dobro-modal__close" onclick="closeDoproModal()">✕</button>
+        <div class="dobro-modal__icon" id="dobro-modal-icon"></div>
+        <h3 class="dobro-modal__title" id="dobro-modal-title"></h3>
+        <p class="dobro-modal__text1" id="dobro-modal-text1"></p>
+        <div class="dobro-modal__divider"></div>
+        <p class="dobro-modal__text2" id="dobro-modal-text2"></p>
+      </div>
+    </div>
+    <!-- ── / ИНФОГРАФИКА ДОБРО-КОЛЕСО ── -->
+
     <div class="fade-in" style="margin-bottom:48px;overflow-x:auto;">
       <table class="data-table">
         <thead>
