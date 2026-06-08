@@ -190,39 +190,36 @@
     <div class="fade-in dobro-wheel-wrap" style="margin-bottom:48px;">
       <div class="dobro-wheel">
 
-        <!-- Центр -->
+        <!-- Строка 1: пусто / Продукт / пусто -->
+        <div></div>
+        <div class="dw-cell">
+          <button class="dobro-pill dobro-pill--yellow" onclick="openDoproModal('product')">
+            <span class="dobro-pill__dot"></span><span>Продукт</span>
+          </button>
+        </div>
+        <div></div>
+
+        <!-- Строка 2: Люди / Центр / Продажи -->
+        <div class="dw-cell">
+          <button class="dobro-pill dobro-pill--orange" onclick="openDoproModal('people')">
+            <span class="dobro-pill__dot"></span><span>Люди</span>
+          </button>
+        </div>
         <div class="dobro-wheel__center">ДОБРО</div>
+        <div class="dw-cell">
+          <button class="dobro-pill dobro-pill--blue" onclick="openDoproModal('sales')">
+            <span class="dobro-pill__dot"></span><span>Продажи<br>и Гости</span>
+          </button>
+        </div>
 
-        <!-- Кольцо -->
-        <div class="dobro-wheel__ring"></div>
-
-        <!-- Плашка: Продукт (сверху) -->
-        <button class="dobro-pill dobro-pill--top dobro-pill--yellow"
-                onclick="openDoproModal('product')">
-          <span class="dobro-pill__dot"></span>
-          <span>Продукт</span>
-        </button>
-
-        <!-- Плашка: Люди (слева) -->
-        <button class="dobro-pill dobro-pill--left dobro-pill--orange"
-                onclick="openDoproModal('people')">
-          <span class="dobro-pill__dot"></span>
-          <span>Люди</span>
-        </button>
-
-        <!-- Плашка: Продажи (справа) -->
-        <button class="dobro-pill dobro-pill--right dobro-pill--blue"
-                onclick="openDoproModal('sales')">
-          <span class="dobro-pill__dot"></span>
-          <span>Продажи<br>и Гости</span>
-        </button>
-
-        <!-- Плашка: Чистота (снизу) -->
-        <button class="dobro-pill dobro-pill--bottom dobro-pill--green"
-                onclick="openDoproModal('clean')">
-          <span class="dobro-pill__dot"></span>
-          <span>Чистота и<br>оборудование</span>
-        </button>
+        <!-- Строка 3: пусто / Чистота / пусто -->
+        <div></div>
+        <div class="dw-cell">
+          <button class="dobro-pill dobro-pill--green" onclick="openDoproModal('clean')">
+            <span class="dobro-pill__dot"></span><span>Чистота и<br>оборудование</span>
+          </button>
+        </div>
+        <div></div>
 
       </div>
       <p class="dobro-wheel__hint">Нажми на плашку, чтобы узнать подробнее</p>
