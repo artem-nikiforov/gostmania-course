@@ -1115,6 +1115,80 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ══════════════════════════════════════
+   МАРГИНАЛИИ (ценности на полях)
+══════════════════════════════════════ */
+.with-margin {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+}
+
+@media (min-width: 880px) {
+  .with-margin {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .with-margin > :first-child {
+    flex: 1;
+    min-width: 0;
+  }
+  .with-margin > .marginal-note {
+    width: 176px;
+    flex-shrink: 0;
+  }
+  /* Float-вариант: внутри большого блока */
+  .marginal-note--float {
+    float: right;
+    clear: right;
+    width: 176px;
+    margin-left: 24px;
+    margin-bottom: 20px;
+  }
+}
+
+.marginal-note {
+  background: #FDF6EE;
+  border-left: 3px solid #FF8732;
+  border-radius: 0 10px 10px 0;
+  padding: 14px 16px;
+}
+
+.marginal-note__eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FF8732;
+  font-family: 'Roboto', sans-serif;
+  margin: 0 0 5px;
+}
+
+.marginal-note__title {
+  font-family: 'Flame', sans-serif;
+  font-size: 15px;
+  color: #502314;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.marginal-note__text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #502314;
+  opacity: 0.72;
+  margin: 0;
+}
+
+/* Эмодзи-иконки в карточках уровней */
+.inc-emoji {
+  font-size: 36px;
+  line-height: 1;
+}
+
+/* ══════════════════════════════════════
    ИНФОГРАФИКА: ДОБРО-КОЛЕСО  (grid 3×3)
 ══════════════════════════════════════ */
 .dobro-wheel-wrap {

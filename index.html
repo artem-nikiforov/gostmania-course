@@ -191,7 +191,8 @@
     </div>
 
     <!-- ── ИНФОГРАФИКА ДОБРО-КОЛЕСО ── -->
-    <div class="fade-in dobro-wheel-wrap" style="margin-bottom:48px;">
+    <div class="with-margin" style="margin-bottom:48px;">
+      <div class="fade-in dobro-wheel-wrap">
       <div class="dobro-wheel">
 
         <!-- Строка 1: пусто / Продукт / пусто -->
@@ -227,7 +228,13 @@
 
       </div>
       <p class="dobro-wheel__hint">Нажми на плашку, чтобы узнать подробнее</p>
-    </div>
+      </div><!-- /dobro-wheel-wrap -->
+      <aside class="marginal-note fade-in">
+        <p class="marginal-note__eyebrow">Ценность</p>
+        <p class="marginal-note__title">Любовь к своему делу</p>
+        <p class="marginal-note__text">Ценим профессионализм и инициативность. Ищем возможности, сохраняем то, что работает эффективно, отсекаем лишнее.</p>
+      </aside>
+    </div><!-- /with-margin -->
 
     <!-- Модальное окно ДОБРО-колесо -->
     <div id="dobro-modal-overlay" class="dobro-modal-overlay" onclick="closeDoproModal()">
@@ -497,6 +504,11 @@
 
       <!-- После прохождения теста -->
       <div id="video-quiz-done" class="hidden fade-in">
+        <aside class="marginal-note marginal-note--float fade-in">
+          <p class="marginal-note__eyebrow">Ценность</p>
+          <p class="marginal-note__title">Люди прежде всего</p>
+          <p class="marginal-note__text">Заботимся о Госте и сотрудниках. Уважаем каждого и доверяем друг другу.</p>
+        </aside>
 
         <p style="font-size:16px;color:#198737;font-weight:700;margin-bottom:24px;">✓ Ты уже видишь разницу. Осталось понять, что важно каждому Гостю.</p>
 
@@ -538,7 +550,8 @@
         </div>
 
         <!-- ── ИНФОГРАФИКА: ТРИ УРОВНЯ ИНЦИДЕНТОВ ── -->
-        <div class="fade-in incident-levels" style="margin-bottom:32px;">
+        <div class="with-margin" style="margin-bottom:32px;">
+          <div class="fade-in incident-levels">
 
           <!-- УРОВЕНЬ 1 -->
           <div class="incident-card incident-card--l1">
@@ -548,19 +561,8 @@
             </div>
             <div class="incident-card__body">
               <div class="incident-card__icons">
-                <!-- Стакан с трубочкой -->
-                <svg class="inc-icon" viewBox="0 0 44 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="26" y="1" width="4" height="22" rx="2"/>
-                  <path d="M4 17 Q6 12 22 12 Q38 12 40 17 L38 21 L6 21 Z"/>
-                  <path d="M6 21 L10 50 L34 50 L38 21 Z"/>
-                </svg>
-                <!-- Кусок торта -->
-                <svg class="inc-icon" viewBox="0 0 50 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 22 L25 8 L46 22 L46 44 L4 44 Z"/>
-                  <rect x="4" y="20" width="42" height="6" rx="0" opacity="0.25"/>
-                  <circle cx="25" cy="5" r="6"/>
-                  <line x1="25" y1="11" x2="25" y2="8" stroke="white" stroke-width="2"/>
-                </svg>
+                <span class="inc-emoji">🥤</span>
+                <span class="inc-emoji">🍰</span>
               </div>
               <div class="incident-card__divider"></div>
               <div class="incident-card__info">
@@ -585,21 +587,8 @@
             </div>
             <div class="incident-card__body">
               <div class="incident-card__icons">
-                <!-- Картошка фри -->
-                <svg class="inc-icon" viewBox="0 0 46 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="10" y="6"  width="5" height="20" rx="2.5"/>
-                  <rect x="20" y="2"  width="5" height="24" rx="2.5"/>
-                  <rect x="30" y="6"  width="5" height="20" rx="2.5"/>
-                  <path d="M8 28 L8 24 L38 24 L38 28 L42 50 L4 50 Z"/>
-                </svg>
-                <!-- Бургер -->
-                <svg class="inc-icon" viewBox="0 0 50 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 20 Q4 6 25 6 Q46 6 46 20 Z"/>
-                  <rect x="4" y="20" width="42" height="6" rx="2"/>
-                  <path d="M4 26 Q6 22 12 26 Q18 30 24 26 Q30 22 36 26 Q42 30 46 26 L46 28 L4 28 Z" opacity="0.4"/>
-                  <rect x="6" y="28" width="38" height="6" rx="2"/>
-                  <rect x="4" y="34" width="42" height="8" rx="4"/>
-                </svg>
+                <span class="inc-emoji">🍟</span>
+                <span class="inc-emoji">🍔</span>
               </div>
               <div class="incident-card__divider"></div>
               <div class="incident-card__info">
@@ -624,27 +613,9 @@
             </div>
             <div class="incident-card__body">
               <div class="incident-card__icons">
-                <!-- Бургер -->
-                <svg class="inc-icon" viewBox="0 0 50 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 20 Q4 6 25 6 Q46 6 46 20 Z"/>
-                  <rect x="4" y="20" width="42" height="6" rx="2"/>
-                  <path d="M4 26 Q6 22 12 26 Q18 30 24 26 Q30 22 36 26 Q42 30 46 26 L46 28 L4 28 Z" opacity="0.35"/>
-                  <rect x="6" y="28" width="38" height="6" rx="2"/>
-                  <rect x="4" y="34" width="42" height="8" rx="4"/>
-                </svg>
-                <!-- Стакан -->
-                <svg class="inc-icon" viewBox="0 0 44 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="26" y="1" width="4" height="22" rx="2"/>
-                  <path d="M4 17 Q6 12 22 12 Q38 12 40 17 L38 21 L6 21 Z"/>
-                  <path d="M6 21 L10 50 L34 50 L38 21 Z"/>
-                </svg>
-                <!-- Мороженое -->
-                <svg class="inc-icon" viewBox="0 0 44 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 30 L14 50 L30 50 L36 30 Z"/>
-                  <ellipse cx="22" cy="28" rx="14" ry="7"/>
-                  <ellipse cx="22" cy="20" rx="11" ry="7"/>
-                  <ellipse cx="22" cy="13" rx="8"  ry="7"/>
-                </svg>
+                <span class="inc-emoji">🍔</span>
+                <span class="inc-emoji">🥤</span>
+                <span class="inc-emoji">🍰</span>
               </div>
               <div class="incident-card__divider"></div>
               <div class="incident-card__info">
@@ -656,12 +627,18 @@
             </div>
           </div>
 
-        </div>
+          </div><!-- /incident-levels -->
+          <aside class="marginal-note fade-in">
+            <p class="marginal-note__eyebrow">Ценность</p>
+            <p class="marginal-note__title">Ответственность за результат</p>
+            <p class="marginal-note__text">Нам не всё равно, мы вкладываемся в результат по максимуму. Успех компании — залог благополучия каждого.</p>
+          </aside>
+        </div><!-- /with-margin -->
         <!-- ── / ИНФОГРАФИКА: ТРИ УРОВНЯ ИНЦИДЕНТОВ ── -->
 
         <div class="fade-in" style="margin-bottom:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <span style="font-size:16px;">Скачай памятку, чтобы не потерять.</span>
-          <a class="btn-download" href="#" download>
+          <a class="btn-download" href="files/Карманная карточка ДОБРО.pdf" download>
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
             Скачать памятку
           </a>
@@ -1268,17 +1245,25 @@
       </div>
     </div>
 
-    <div class="fade-in body-text" style="margin-bottom:48px;text-align:center;">
-      <p style="font-size:20px;font-weight:700;">Гостемания живёт в тебе. Береги Гостя, береги себя и действуй по ДОБРО.</p>
+    <div class="with-margin" style="margin-bottom:48px;align-items:center;">
+      <div class="fade-in body-text" style="text-align:center;">
+        <p style="font-size:20px;font-weight:700;">Гостемания живёт в тебе. Береги Гостя, береги себя и действуй по ДОБРО.</p>
+      </div>
+      <aside class="marginal-note fade-in">
+        <p class="marginal-note__eyebrow">Ценность</p>
+        <p class="marginal-note__title">Смелость быть собой</p>
+        <p class="marginal-note__text">Мы разные — и в этом наша сила. В честном диалоге рождаются лучшие идеи.</p>
+      </aside>
     </div>
 
     <div class="fade-in" style="margin-bottom:32px;">
       <h3 style="font-size:18px;margin-bottom:16px;">Материалы для скачивания:</h3>
       <div style="display:flex;flex-wrap:wrap;gap:12px;">
-        <a class="btn-download" href="#" download>
+        <a class="btn-download" href="files/Карманная карточка ДОБРО.pdf" download>
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
           Памятка по ДОБРО
         </a>
+
         <a class="btn-download" href="#" download>
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
           Таблица уровней инцидентов
