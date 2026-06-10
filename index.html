@@ -72,23 +72,28 @@
     <h2 style="font-size:22px;margin-bottom:8px;">Содержание курса</h2>
     <p style="font-size:15px;opacity:0.6;margin-bottom:32px;font-family:'Roboto',sans-serif;font-weight:400;">Проходи главы по порядку. Каждая открывается кнопкой «Далее» в конце предыдущей.</p>
     <div class="chapter-grid">
-      <div class="chapter-card" onclick="navigateTo('block1')">
+      <div class="chapter-card" id="home-card-1" onclick="navigateTo('block1')">
+        <div class="chapter-lock"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
         <div class="chapter-num" style="background:#FF8732;">1</div>
         <div><h3>Философия Гостемании</h3><p>Три кита и четыре навыка</p></div>
       </div>
-      <div class="chapter-card" onclick="navigateTo('block2')">
+      <div class="chapter-card" id="home-card-2" onclick="navigateTo('block2')">
+        <div class="chapter-lock"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
         <div class="chapter-num" style="background:#D62300;">2</div>
         <div><h3>Алгоритм ДОБРО</h3><p>Твой инструмент в сложных ситуациях</p></div>
       </div>
-      <div class="chapter-card" onclick="navigateTo('block3')">
+      <div class="chapter-card" id="home-card-3" onclick="navigateTo('block3')">
+        <div class="chapter-lock"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
         <div class="chapter-num" style="background:#FFAA00;color:#502314;">3</div>
         <div><h3>Работа с инцидентами</h3><p>Как читать настроение Гостя</p></div>
       </div>
-      <div class="chapter-card" onclick="navigateTo('hub')">
+      <div class="chapter-card" id="home-card-4" onclick="navigateTo('hub')">
+        <div class="chapter-lock"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
         <div class="chapter-num" style="background:#198737;">4</div>
         <div><h3>Замена и комплемент</h3><p>Три раздела: замена, комплемент, особые случаи</p></div>
       </div>
-      <div class="chapter-card full-width" onclick="navigateTo('block8')">
+      <div class="chapter-card full-width" id="home-card-5" onclick="navigateTo('block8')">
+        <div class="chapter-lock"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
         <div class="chapter-num" style="background:#502314;">5</div>
         <div><h3>Заключение</h3><p>Итоги и материалы для скачивания</p></div>
       </div>
@@ -193,6 +198,7 @@
     <!-- ── ИНФОГРАФИКА ДОБРО-КОЛЕСО ── -->
     <div class="with-margin" style="margin-bottom:48px;">
       <div class="fade-in dobro-wheel-wrap">
+      <p class="dobro-wheel__hint">Нажми на плашку, чтобы узнать подробнее</p>
       <div class="dobro-wheel">
 
         <!-- Строка 1: пусто / Продукт / пусто -->
@@ -227,7 +233,6 @@
         <div></div>
 
       </div>
-      <p class="dobro-wheel__hint">Нажми на плашку, чтобы узнать подробнее</p>
       </div><!-- /dobro-wheel-wrap -->
       <aside class="marginal-note fade-in">
         <p class="marginal-note__eyebrow">Ценность</p>
@@ -460,6 +465,10 @@
           <button class="answer-btn" onclick="answerVideo(this,0,'злой')">Злой</button>
         </div>
         <div id="vq-fb-0" class="vq-feedback"></div>
+        <button class="btn-secondary vq-next" id="vq-next-0" style="display:none;margin-top:16px;" onclick="nextVideoStep()">
+          Далее
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
 
       <!-- Вопрос 2 — embed: block3-mood-2 -->
@@ -480,6 +489,10 @@
           <button class="answer-btn" onclick="answerVideo(this,1,'агрессивный')">Агрессивный</button>
         </div>
         <div id="vq-fb-1" class="vq-feedback"></div>
+        <button class="btn-secondary vq-next" id="vq-next-1" style="display:none;margin-top:16px;" onclick="nextVideoStep()">
+          Далее
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
 
       <!-- Вопрос 3 — embed: block3-mood-3 -->
@@ -500,6 +513,10 @@
           <button class="answer-btn" onclick="answerVideo(this,2,'злой')">Злой</button>
         </div>
         <div id="vq-fb-2" class="vq-feedback"></div>
+        <button class="btn-secondary vq-next" id="vq-next-2" style="display:none;margin-top:16px;" onclick="nextVideoStep()">
+          Показать результат
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
 
       <!-- После прохождения теста -->
@@ -695,112 +712,9 @@
 
   <div class="content-wrap">
 
-    <!-- ════ РАЗМИНКА (3 шага) ════ -->
-    <div id="hub-warmup-box" class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:48px;">
-      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 6px;">Задание: разминка</p>
-      <p style="font-size:16px;font-weight:700;margin:0 0 20px;">Проверь себя перед изучением материала — три упражнения, одно за другим.</p>
-
-      <!-- Индикатор шагов -->
-      <div class="warmup-steps-indicator" style="margin-bottom:24px;">
-        <div class="warmup-step-dot active" id="wdot-0">1</div>
-        <div class="warmup-step-line"></div>
-        <div class="warmup-step-dot" id="wdot-1">2</div>
-        <div class="warmup-step-line"></div>
-        <div class="warmup-step-dot" id="wdot-2">3</div>
-      </div>
-
-      <!-- Шаг 1: сортировка жалоб -->
-      <div class="warmup-step active" id="hub-ws0">
-        <p style="font-size:15px;font-weight:700;margin:0 0 8px;">Разнеси жалобы по двум инструментам</p>
-        <p style="font-size:14px;margin:0 0 14px;opacity:0.7;">Перетащи каждую карточку в нужную колонку</p>
-        <div class="zone-pool" id="hub-pool1">
-          <div class="drag-chip" id="h1a" data-key="ожидание">Жду заказ уже 10 минут</div>
-          <div class="drag-chip" id="h1b" data-key="грязь">В зале грязно</div>
-          <div class="drag-chip" id="h1c" data-key="столик">Не убран столик</div>
-          <div class="drag-chip" id="h1d" data-key="нагрубили">Мне нагрубили на кассе</div>
-          <div class="drag-chip" id="h1e" data-key="холодный">Бургер холодный</div>
-          <div class="drag-chip" id="h1f" data-key="сухая">Котлета сухая</div>
-          <div class="drag-chip" id="h1g" data-key="пересолена">Картошка фри пересолена</div>
-          <div class="drag-chip" id="h1h" data-key="кола">Вместо колы течёт просто вода</div>
-        </div>
-        <div class="drop-zones-row" style="margin-top:14px;">
-          <div>
-            <div class="drop-zone-label" style="color:#FFAA00;">Комплемент</div>
-            <div class="drop-zone" id="hub-zone1a"></div>
-          </div>
-          <div>
-            <div class="drop-zone-label" style="color:#D62300;">Замена + Комплемент</div>
-            <div class="drop-zone" id="hub-zone1b"></div>
-          </div>
-        </div>
-        <div style="margin-top:16px;"><button class="btn-check" onclick="checkHubWarmup0()">Проверить</button></div>
-        <div id="hub-ws0-feedback" class="feedback-box"></div>
-      </div>
-
-      <!-- Шаг 2: matching комплементов -->
-      <div class="warmup-step" id="hub-ws1">
-        <p style="font-size:15px;font-weight:700;margin:0 0 16px;">Сопоставь жалобу с правильным комплементом</p>
-        <div class="match-question" id="hub-mq0">
-          <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Грязь в зале»</p>
-          <div class="match-options">
-            <button class="match-btn" onclick="pickHubMatch(this,0,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
-            <button class="match-btn" onclick="pickHubMatch(this,0,'десерт')">Напиток или десерт</button>
-            <button class="match-btn" onclick="pickHubMatch(this,0,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
-          </div>
-        </div>
-        <div class="match-question" id="hub-mq1">
-          <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Ожидание заказа более 9 минут»</p>
-          <div class="match-options">
-            <button class="match-btn" onclick="pickHubMatch(this,1,'десерт')">Напиток или десерт</button>
-            <button class="match-btn" onclick="pickHubMatch(this,1,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
-            <button class="match-btn" onclick="pickHubMatch(this,1,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
-          </div>
-        </div>
-        <div class="match-question" id="hub-mq2">
-          <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Нагрубил сотрудник»</p>
-          <div class="match-options">
-            <button class="match-btn" onclick="pickHubMatch(this,2,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
-            <button class="match-btn" onclick="pickHubMatch(this,2,'десерт')">Напиток или десерт</button>
-            <button class="match-btn" onclick="pickHubMatch(this,2,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
-          </div>
-        </div>
-        <div id="hub-ws1-feedback" class="feedback-box"></div>
-      </div>
-
-      <!-- Шаг 3: делать / не делать -->
-      <div class="warmup-step" id="hub-ws2">
-        <p style="font-size:15px;font-weight:700;margin:0 0 8px;">Распредели действия при злоупотреблении Гостя</p>
-        <p style="font-size:14px;margin:0 0 14px;opacity:0.7;">Перетащи карточки в колонки «Делать» и «Не делать»</p>
-        <div class="zone-pool" id="hub-pool3">
-          <div class="drag-chip" id="h3a" data-key="спокойный-тон">Сохранять спокойный тон</div>
-          <div class="drag-chip" id="h3b" data-key="правила">Ссылаться на правила учёта</div>
-          <div class="drag-chip" id="h3c" data-key="руководитель">Предложить позвать руководителя</div>
-          <div class="drag-chip" id="h3d" data-key="зафиксировать">Зафиксировать инцидент</div>
-          <div class="drag-chip" id="h3e" data-key="обвинять">Обвинять Гостя во лжи</div>
-          <div class="drag-chip" id="h3f" data-key="обманываете">Говорить «Вы нас обманываете»</div>
-          <div class="drag-chip" id="h3g" data-key="спорить">Спорить и доказывать</div>
-          <div class="drag-chip" id="h3h" data-key="игнорировать">Игнорировать</div>
-        </div>
-        <div class="drop-zones-row" style="margin-top:14px;">
-          <div>
-            <div class="drop-zone-label" style="color:#198737;">✓ Что делать</div>
-            <div class="drop-zone" id="hub-zone3a"></div>
-          </div>
-          <div>
-            <div class="drop-zone-label" style="color:#D62300;">✗ Что НЕ делать</div>
-            <div class="drop-zone" id="hub-zone3b"></div>
-          </div>
-        </div>
-        <div style="margin-top:16px;"><button class="btn-check" onclick="checkHubWarmup2()">Проверить</button></div>
-        <div id="hub-ws2-feedback" class="feedback-box"></div>
-      </div>
-
-      <!-- Завершение разминки -->
-      <div class="warmup-done" id="hub-warmup-done">
-        <div style="font-size:32px;margin-bottom:8px;">🎉</div>
-        <p style="font-size:17px;font-weight:700;color:#198737;margin:0;">Разминка завершена!</p>
-        <p style="font-size:15px;opacity:0.75;margin:6px 0 0;">Теперь изучи каждый раздел подробнее — выбери карточку ниже.</p>
-      </div>
+    <!-- ════ Вступление ════ -->
+    <div class="fade-in body-text" style="margin-bottom:32px;">
+      <p>Здесь два инструмента — <strong>замена</strong> и <strong>комплемент</strong>. Разбери три раздела по порядку: в каждом тебя ждёт короткая разминка и подробный материал.</p>
     </div>
 
     <!-- ════ 3 РАЗДЕЛА ════ -->
@@ -831,6 +745,11 @@
         <p>Злоупотребления и нестандартные ситуации</p>
         <div class="done-badge"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
       </div>
+    </div>
+
+    <!-- Подсказка про FAQ -->
+    <div class="fade-in body-text" style="margin-bottom:32px;">
+      <p style="opacity:0.8;">После прохождения каждого раздела ты можешь изучить частые вопросы и ответы на них — они собраны ниже в блоке FAQ.</p>
     </div>
 
     <!-- ════ FAQ ════ -->
@@ -909,6 +828,35 @@
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
       Назад к выбору раздела
     </button>
+
+    <!-- ════ Разминка раздела 1 ════ -->
+    <div class="section-warmup fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 6px;">Разминка</p>
+      <p style="font-size:15px;font-weight:700;margin:0 0 8px;">Разнеси жалобы по двум инструментам</p>
+      <p style="font-size:14px;margin:0 0 14px;opacity:0.7;">Перетащи каждую карточку в нужную колонку</p>
+      <div class="zone-pool" id="hub-pool1">
+        <div class="drag-chip" id="h1a" data-key="ожидание">Жду заказ уже 10 минут</div>
+        <div class="drag-chip" id="h1b" data-key="грязь">В зале грязно</div>
+        <div class="drag-chip" id="h1c" data-key="столик">Не убран столик</div>
+        <div class="drag-chip" id="h1d" data-key="нагрубили">Мне нагрубили на кассе</div>
+        <div class="drag-chip" id="h1e" data-key="холодный">Бургер холодный</div>
+        <div class="drag-chip" id="h1f" data-key="сухая">Котлета сухая</div>
+        <div class="drag-chip" id="h1g" data-key="пересолена">Картошка фри пересолена</div>
+        <div class="drag-chip" id="h1h" data-key="кола">Вместо колы течёт просто вода</div>
+      </div>
+      <div class="drop-zones-row" style="margin-top:14px;">
+        <div>
+          <div class="drop-zone-label" style="color:#FFAA00;">Комплемент</div>
+          <div class="drop-zone" id="hub-zone1a"></div>
+        </div>
+        <div>
+          <div class="drop-zone-label" style="color:#D62300;">Замена + Комплемент</div>
+          <div class="drop-zone" id="hub-zone1b"></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;"><button class="btn-check" onclick="checkHubWarmup0()">Проверить</button></div>
+      <div id="hub-ws0-feedback" class="feedback-box"></div>
+    </div>
 
     <div class="fade-in body-text" style="margin-bottom:24px;">
       <p>Замена — это когда Гость получает новое блюдо вместо того, которое ему не понравилось. Бесплатно. Потому что ошибка была на нашей стороне:</p>
@@ -1052,6 +1000,37 @@
       Назад к выбору раздела
     </button>
 
+    <!-- ════ Разминка раздела 2 ════ -->
+    <div class="section-warmup fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 6px;">Разминка</p>
+      <p style="font-size:15px;font-weight:700;margin:0 0 16px;">Сопоставь жалобу с правильным комплементом</p>
+      <div class="match-question" id="hub-mq0">
+        <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Грязь в зале»</p>
+        <div class="match-options">
+          <button class="match-btn" onclick="pickHubMatch(this,0,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
+          <button class="match-btn" onclick="pickHubMatch(this,0,'десерт')">Напиток или десерт</button>
+          <button class="match-btn" onclick="pickHubMatch(this,0,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
+        </div>
+      </div>
+      <div class="match-question" id="hub-mq1">
+        <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Ожидание заказа более 9 минут»</p>
+        <div class="match-options">
+          <button class="match-btn" onclick="pickHubMatch(this,1,'десерт')">Напиток или десерт</button>
+          <button class="match-btn" onclick="pickHubMatch(this,1,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
+          <button class="match-btn" onclick="pickHubMatch(this,1,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
+        </div>
+      </div>
+      <div class="match-question" id="hub-mq2">
+        <p style="font-weight:700;margin:0 0 8px;">Жалоба: «Нагрубил сотрудник»</p>
+        <div class="match-options">
+          <button class="match-btn" onclick="pickHubMatch(this,2,'напиток-десерт')">Напиток + десерт или напиток + закуска</button>
+          <button class="match-btn" onclick="pickHubMatch(this,2,'десерт')">Напиток или десерт</button>
+          <button class="match-btn" onclick="pickHubMatch(this,2,'бургер-сет')">Бургер + закуска + напиток + десерт</button>
+        </div>
+      </div>
+      <div id="hub-ws1-feedback" class="feedback-box"></div>
+    </div>
+
     <div class="fade-in body-text" style="margin-bottom:24px;">
       <p>Комплемент — это подарок от компании. Гость получает его бесплатно, сверх заказа. Его можно выдавать отдельно от замены.</p>
       <p>Комплемент уместен почти в любой ситуации, когда Гость недоволен:</p>
@@ -1069,10 +1048,10 @@
       <table class="data-table">
         <thead><tr><th>Тип</th><th>Когда давать</th></tr></thead>
         <tbody>
-          <tr><td><strong>Сладкий десерт</strong></td><td>Гость сыт, дети, жаркая погода, финал визита</td></tr>
-          <tr><td><strong>Закуска / гарнир</strong></td><td>Гость голоден, компания подростков</td></tr>
-          <tr><td><strong>Напиток</strong></td><td>Любая ситуация как базовый жест</td></tr>
-          <tr><td><strong>Бургер</strong></td><td>Серьёзная проблема, разгневанный гость</td></tr>
+          <tr><td><span class="compl-emoji">🍰</span> <strong>Сладкий десерт</strong></td><td>Гость сыт, дети, жаркая погода, финал визита</td></tr>
+          <tr><td><span class="compl-emoji">🍟</span> <strong>Закуска / гарнир</strong></td><td>Гость голоден, компания подростков</td></tr>
+          <tr><td><span class="compl-emoji">🥤</span> <strong>Напиток</strong></td><td>Любая ситуация как базовый жест</td></tr>
+          <tr><td><span class="compl-emoji">🍔</span> <strong>Бургер</strong></td><td>Серьёзная проблема, разгневанный гость</td></tr>
         </tbody>
       </table>
       <p style="font-size:14px;margin-top:10px;opacity:0.7;">Эта матрица — рекомендация, а не жёсткое правило.</p>
@@ -1193,6 +1172,35 @@
         <source src="audio/section3-script-2.mp3" type="audio/mpeg">
       </audio>
       <div class="callout">«Давайте я сейчас приглашу руководителя, и мы вместе разберём вашу ситуацию в рамках наших правил».</div>
+    </div>
+
+    <!-- ════ Разминка раздела 3 (закрепление) ════ -->
+    <div class="section-warmup fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+      <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 6px;">Закрепление</p>
+      <p style="font-size:15px;font-weight:700;margin:0 0 8px;">Распредели действия при злоупотреблении Гостя</p>
+      <p style="font-size:14px;margin:0 0 14px;opacity:0.7;">Перетащи карточки в колонки «Делать» и «Не делать»</p>
+      <div class="zone-pool" id="hub-pool3">
+        <div class="drag-chip" id="h3a" data-key="спокойный-тон">Сохранять спокойный тон</div>
+        <div class="drag-chip" id="h3b" data-key="правила">Ссылаться на правила учёта</div>
+        <div class="drag-chip" id="h3c" data-key="руководитель">Предложить позвать руководителя</div>
+        <div class="drag-chip" id="h3d" data-key="зафиксировать">Зафиксировать инцидент</div>
+        <div class="drag-chip" id="h3e" data-key="обвинять">Обвинять Гостя во лжи</div>
+        <div class="drag-chip" id="h3f" data-key="обманываете">Говорить «Вы нас обманываете»</div>
+        <div class="drag-chip" id="h3g" data-key="спорить">Спорить и доказывать</div>
+        <div class="drag-chip" id="h3h" data-key="игнорировать">Игнорировать</div>
+      </div>
+      <div class="drop-zones-row" style="margin-top:14px;">
+        <div>
+          <div class="drop-zone-label" style="color:#198737;">✓ Что делать</div>
+          <div class="drop-zone" id="hub-zone3a"></div>
+        </div>
+        <div>
+          <div class="drop-zone-label" style="color:#D62300;">✗ Что НЕ делать</div>
+          <div class="drop-zone" id="hub-zone3b"></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;"><button class="btn-check" onclick="checkHubWarmup2()">Проверить</button></div>
+      <div id="hub-ws2-feedback" class="feedback-box"></div>
     </div>
 
     <div class="next-row">

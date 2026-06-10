@@ -202,16 +202,29 @@ h1, h2, h3, h4, h5 {
   border-radius: 16px;
   padding: 24px;
   cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, opacity 0.3s;
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  position: relative;
 }
 .chapter-card:hover {
   border-color: #FF8732;
   box-shadow: 0 4px 20px rgba(255,135,50,0.15);
 }
 .chapter-card.full-width { grid-column: 1 / -1; }
+.chapter-card.locked { opacity: 0.5; pointer-events: none; filter: grayscale(0.4); }
+.chapter-card .chapter-lock {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: #B7AFA2;
+  border-radius: 50%;
+  width: 24px; height: 24px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.chapter-card.locked .chapter-lock { display: flex; }
 .chapter-num {
   width: 48px;
   height: 48px;
@@ -318,10 +331,11 @@ h1, h2, h3, h4, h5 {
 /* ── Cards row (3 cols) ── */
 .cards-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* равные колонки, не растягиваются под длинное слово */
   gap: 16px;
+  align-items: stretch;
 }
-@media (max-width: 600px) {
+@media (max-width: 760px) {
   .cards-row { grid-template-columns: 1fr; }
 }
 .feature-card {
@@ -333,13 +347,19 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   text-align: center;
   gap: 12px;
+  height: 100%;          /* одинаковая высота всех карточек в строке */
 }
 .card-big-word {
   font-family: 'Flame', sans-serif;
-  font-size: clamp(36px, 6vw, 52px);
+  font-size: clamp(24px, 4vw, 52px);
   color: #FF8732;
   line-height: 1;
+  min-height: 52px;      /* выравнивает подписи под словами разной длины */
+  display: flex;
+  align-items: center;
+  white-space: nowrap;   /* длинное слово не переносится посреди */
 }
+.card-sub { flex: 1; }   /* подпись заполняет остаток — низ карточек ровный */
 .card-sub {
   font-size: 14px;
   color: #502314;
@@ -780,20 +800,21 @@ h1, h2, h3, h4, h5 {
   background: #ccc;
   border-radius: 50%;
   width: 24px; height: 24px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 }
+/* Замок показываем ТОЛЬКО когда раздел действительно заблокирован */
+.hub-card.locked .lock-badge { display: flex; }
 .hub-card .done-badge {
   position: absolute;
   top: 12px; right: 12px;
   background: #198737;
   border-radius: 50%;
   width: 24px; height: 24px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  display: none;
 }
 .hub-card.done .done-badge { display: flex; }
 .hub-card.done .lock-badge { display: none; }
@@ -938,9 +959,21 @@ h1, h2, h3, h4, h5 {
   display: block;
 }
 .img-slot.banner-slot { height: 220px; }
-.img-slot.infographic-slot { min-height: 280px; }
+/* Инфографика «3 кита» — показываем целиком (contain), высота по контенту,
+   чтобы корректно адаптировалась в т.ч. в горизонтальном режиме телефона */
+.img-slot.infographic-slot { min-height: 200px; }
+.img-slot.infographic-slot img { height: auto; object-fit: contain; }
 .img-slot.gallery-slot { height: 280px; }
 .img-slot.incident-slot { min-height: 200px; }
+
+/* ── Горизонтальный (landscape) режим телефона ── */
+@media (orientation: landscape) and (max-height: 600px) {
+  .home-hero { height: auto; min-height: 320px; }
+  .img-slot.infographic-slot img { max-height: 78vh; }
+  .img-slot.gallery-slot { height: 70vh; max-height: 300px; }
+  .img-slot.gallery-slot img { object-fit: contain; background: #F5EBDC; }
+  .page-banner { height: 160px; }
+}
 .img-label {
   position: absolute;
   inset: 0;
@@ -1135,24 +1168,24 @@ h1, h2, h3, h4, h5 {
     min-width: 0;
   }
   .with-margin > .marginal-note {
-    width: 176px;
+    width: 140px;
     flex-shrink: 0;
   }
   /* Float-вариант: внутри большого блока */
   .marginal-note--float {
     float: right;
     clear: right;
-    width: 176px;
+    width: 140px;
     margin-left: 24px;
     margin-bottom: 20px;
   }
 }
 
 .marginal-note {
-  background: #FDF6EE;
-  border-left: 3px solid #FF8732;
-  border-radius: 0 10px 10px 0;
-  padding: 14px 16px;
+  background: transparent;
+  border-left: 2px solid #E8E0D3;   /* нейтральный отделитель, без цвета */
+  border-radius: 0;
+  padding: 4px 0 4px 14px;
 }
 
 .marginal-note__eyebrow {
@@ -1186,6 +1219,13 @@ h1, h2, h3, h4, h5 {
 .inc-emoji {
   font-size: 36px;
   line-height: 1;
+}
+
+/* Эмодзи в таблице «какие бывают комплементы» */
+.compl-emoji {
+  font-size: 18px;
+  margin-right: 4px;
+  vertical-align: middle;
 }
 
 /* ══════════════════════════════════════

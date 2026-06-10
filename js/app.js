@@ -16,6 +16,7 @@ const CHAPTER_NAMES = {
 const CHAPTER_ORDER = ['block1','block2','block3','hub','block8'];
 const hubDone = [false, false, false];
 let currentPage = 'home';
+let unlockedChapters = 1;            // сколько глав открыто на главной (1..5)
 
 function navigateTo(pageId) {
   PAGES.forEach(id => {
@@ -45,9 +46,20 @@ function navigateTo(pageId) {
 
   setTimeout(initFadeIn, 50);
 
-  if (pageId === 'block2')  initGallery();
-  if (pageId === 'block3')  { initSortable(); initVideoQuiz(); }
-  if (pageId === 'hub')     initHubWarmup();
+  if (pageId === 'block2')   initGallery();
+  if (pageId === 'block3')   { initSortable(); initVideoQuiz(); }
+  if (pageId === 'hub')      applyHubLocks();
+  if (pageId === 'section1') initSection1Warmup();
+  if (pageId === 'section2') initSection2Warmup();
+  if (pageId === 'section3') initSection3Warmup();
+
+  // Последовательная разблокировка глав на главной + запись в SCORM
+  const ci = CHAPTER_ORDER.indexOf(pageId);
+  if (ci !== -1) {
+    const newUnlocked = Math.min(ci + 2, CHAPTER_ORDER.length);
+    if (newUnlocked > unlockedChapters) { unlockedChapters = newUnlocked; saveProgress(); }
+    applyHomeLocks();
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -211,7 +223,13 @@ const VIDEO_FEEDBACK = [
   '✓ Верно — это злой / раздражённый Гость. Признай его правоту и дай выговориться.',
 ];
 
-function initVideoQuiz() { videoStep = 0; showVideoStep(0); }
+function initVideoQuiz() {
+  videoStep = 0;
+  document.querySelectorAll('#video-section .answer-btn').forEach(b => { b.disabled = false; b.classList.remove('correct', 'wrong'); });
+  document.querySelectorAll('#video-section .vq-feedback').forEach(f => { f.classList.remove('show'); f.textContent = ''; });
+  document.querySelectorAll('#video-section .vq-next').forEach(b => b.style.display = 'none');
+  showVideoStep(0);
+}
 function showVideoStep(n) {
   document.querySelectorAll('.video-quiz-step').forEach((el, i) => el.classList.toggle('active', i === n));
   if (n >= 3) {
@@ -226,11 +244,20 @@ function answerVideo(btn, stepIdx, answer) {
     btn.closest('.answer-choices').querySelectorAll('.answer-btn').forEach(b => b.disabled = true);
     const fb = document.getElementById('vq-fb-' + stepIdx);
     if (fb) { fb.textContent = VIDEO_FEEDBACK[stepIdx]; fb.classList.add('show'); }
-    setTimeout(() => { videoStep++; showVideoStep(videoStep); }, 1000);
+    // Показываем кнопку «Далее» — следующее видео не появляется само,
+    // чтобы можно было прочитать обратную связь.
+    const nextBtn = document.getElementById('vq-next-' + stepIdx);
+    if (nextBtn) nextBtn.style.display = 'inline-flex';
   } else {
     btn.classList.add('wrong');
     setTimeout(() => btn.classList.remove('wrong'), 600);
   }
+}
+function nextVideoStep() {
+  videoStep++;
+  showVideoStep(videoStep);
+  const active = document.querySelector('.video-quiz-step.active') || document.getElementById('video-quiz-done');
+  if (active) active.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* ═══════════════════════════════════════════════
@@ -243,9 +270,13 @@ function initZoneSort(poolId, zone1Id, zone2Id) {
   if (!pool || !z1 || !z2) return;
 
   [pool, z1, z2].forEach(container => {
-    container.querySelectorAll('.drag-chip').forEach(chip => bindChip(chip, pool, z1, z2));
+    container.querySelectorAll('.drag-chip').forEach(chip => {
+      if (!chip.dataset.chipBound) { bindChip(chip, pool, z1, z2); chip.dataset.chipBound = '1'; }
+    });
   });
   [pool, z1, z2].forEach(zone => {
+    if (zone.dataset.zoneBound) return;
+    zone.dataset.zoneBound = '1';
     zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
     zone.addEventListener('drop', e => {
@@ -256,6 +287,28 @@ function initZoneSort(poolId, zone1Id, zone2Id) {
       if (chip) zone.appendChild(chip);
     });
   });
+}
+
+/* Перемешать дочерние элементы (для разминок — чтобы карточки не шли группами) */
+function shuffleChildren(el) {
+  if (!el) return;
+  const kids = [...el.children];
+  for (let i = kids.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [kids[i], kids[j]] = [kids[j], kids[i]];
+  }
+  kids.forEach(k => el.appendChild(k));
+}
+
+/* Вернуть все чипы в пул и перемешать */
+function resetZonePool(poolId, ...zoneIds) {
+  const pool = document.getElementById(poolId);
+  if (!pool) return;
+  zoneIds.forEach(zid => {
+    const z = document.getElementById(zid);
+    if (z) [...z.querySelectorAll('.drag-chip')].forEach(c => pool.appendChild(c));
+  });
+  shuffleChildren(pool);
 }
 
 function bindChip(chip, pool, z1, z2) {
@@ -337,50 +390,21 @@ function pickMatch(btn, qIdx, answer) {
 }
 
 /* ═══════════════════════════════════════════════
-   Hub – 3-step warm-up
+   Разминки внутри подразделов (4.1 / 4.2 / 4.3)
 ═══════════════════════════════════════════════ */
-let hubWarmupStep = -1; // -1 = not started yet
+let hubMatchSolved = [false, false, false];
 
-function initHubWarmup() {
-  hubWarmupStep = 0;
-  // Reset all steps
-  document.querySelectorAll('#page-hub .warmup-step').forEach(el => el.classList.remove('active'));
-  document.getElementById('hub-warmup-done')?.classList.remove('show');
-  updateWarmupDots(0);
-  const s0 = document.getElementById('hub-ws0');
-  if (s0) s0.classList.add('active');
-  // Init zone sort for step 1 and step 3
+function clearFeedback(id) {
+  const fb = document.getElementById(id);
+  if (fb) { fb.className = 'feedback-box'; fb.innerHTML = ''; }
+}
+
+/* Раздел 1 — сортировка жалоб по инструментам (в начале раздела) */
+function initSection1Warmup() {
+  resetZonePool('hub-pool1', 'hub-zone1a', 'hub-zone1b');
   initZoneSort('hub-pool1', 'hub-zone1a', 'hub-zone1b');
-  initZoneSort('hub-pool3', 'hub-zone3a', 'hub-zone3b');
-  // Reset hub match
-  hubMatchSolved = [false, false, false];
+  clearFeedback('hub-ws0-feedback');
 }
-
-function updateWarmupDots(step) {
-  document.querySelectorAll('#page-hub .warmup-step-dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === step);
-    dot.classList.toggle('done',   i < step);
-    if (i === step) dot.classList.remove('done');
-  });
-}
-
-function advanceWarmup(fromStep) {
-  const steps = document.querySelectorAll('#page-hub .warmup-step');
-  if (fromStep < steps.length - 1) {
-    steps[fromStep].classList.remove('active');
-    steps[fromStep + 1].classList.add('active');
-    hubWarmupStep = fromStep + 1;
-    updateWarmupDots(hubWarmupStep);
-    window.scrollTo({ top: document.getElementById('hub-warmup-box')?.offsetTop - 80 || 0, behavior: 'smooth' });
-  } else {
-    steps[fromStep].classList.remove('active');
-    hubWarmupStep = steps.length;
-    updateWarmupDots(steps.length);
-    document.getElementById('hub-warmup-done')?.classList.add('show');
-  }
-}
-
-/* Hub warm-up step 1 — complaints sort */
 function checkHubWarmup0() {
   const z1 = [...document.getElementById('hub-zone1a').querySelectorAll('.drag-chip')].map(c => c.dataset.key);
   const z2 = [...document.getElementById('hub-zone1b').querySelectorAll('.drag-chip')].map(c => c.dataset.key);
@@ -393,12 +417,15 @@ function checkHubWarmup0() {
   fb.innerHTML = ok
     ? '<strong>Верно!</strong> Проблемы с едой → замена + комплемент. Проблемы с сервисом → только комплемент.'
     : '<strong>Неверно.</strong> Проблемы с едой (холодная, пересолена, не та) → <strong>замена + комплемент</strong>. Ожидание, грязь, грубость → <strong>комплемент</strong>.';
-  setTimeout(() => advanceWarmup(0), 1600);
 }
 
-/* Hub warm-up step 2 — complement matching */
-let hubMatchSolved = [false, false, false];
-
+/* Раздел 2 — сопоставление комплементов (в начале раздела) */
+function initSection2Warmup() {
+  hubMatchSolved = [false, false, false];
+  document.querySelectorAll('#page-section2 .match-btn').forEach(b => { b.disabled = false; b.classList.remove('correct-pick', 'wrong-pick'); });
+  document.querySelectorAll('#page-section2 .match-question').forEach(q => q.classList.remove('solved'));
+  clearFeedback('hub-ws1-feedback');
+}
 function pickHubMatch(btn, qIdx, answer) {
   if (hubMatchSolved[qIdx]) return;
   if (answer === MATCH_ANSWERS[qIdx]) {
@@ -409,8 +436,7 @@ function pickHubMatch(btn, qIdx, answer) {
     if (hubMatchSolved.every(Boolean)) {
       const fb = document.getElementById('hub-ws1-feedback');
       fb.className = 'feedback-box show correct';
-      fb.innerHTML = '<strong>Верно!</strong> Отлично — ты знаешь, какой комплемент соответствует каждой жалобе.';
-      setTimeout(() => advanceWarmup(1), 1600);
+      fb.innerHTML = '<strong>Верно!</strong> Отлично — ты знаешь, какой комплемент соответствует каждой жалобе. Изучай раздел дальше.';
     }
   } else {
     btn.classList.add('wrong-pick');
@@ -418,7 +444,12 @@ function pickHubMatch(btn, qIdx, answer) {
   }
 }
 
-/* Hub warm-up step 3 — do/don't sort */
+/* Раздел 3 — делать / не делать (в конце раздела) */
+function initSection3Warmup() {
+  resetZonePool('hub-pool3', 'hub-zone3a', 'hub-zone3b');
+  initZoneSort('hub-pool3', 'hub-zone3a', 'hub-zone3b');
+  clearFeedback('hub-ws2-feedback');
+}
 function checkHubWarmup2() {
   const z1 = [...document.getElementById('hub-zone3a').querySelectorAll('.drag-chip')].map(c => c.dataset.key);
   const z2 = [...document.getElementById('hub-zone3b').querySelectorAll('.drag-chip')].map(c => c.dataset.key);
@@ -431,7 +462,6 @@ function checkHubWarmup2() {
   fb.innerHTML = ok
     ? '<strong>Верно!</strong> Именно так: сохраняй спокойствие и следуй правилам.'
     : '<strong>Неверно.</strong> Спокойный тон, правила, руководитель, фиксация — всё это правильные действия. Обвинения, споры, игнорирование — недопустимы.';
-  setTimeout(() => advanceWarmup(2), 1600);
 }
 
 /* ═══════════════════════════════════════════════
@@ -441,13 +471,20 @@ function goToSection(n) { navigateTo('section' + n); }
 
 function completeSection(n) {
   hubDone[n - 1] = true;
-  const cards = document.querySelectorAll('.hub-card');
-  if (cards[n - 1]) cards[n - 1].classList.add('done');
-  if (n < 3 && cards[n]) cards[n].classList.remove('locked');
-  navigateTo('hub');
-  setTimeout(() => {
-    if (hubDone.every(Boolean)) document.getElementById('hub-next-row')?.classList.add('show');
-  }, 100);
+  saveProgress();
+  navigateTo('hub'); // applyHubLocks() вызывается внутри для ветки 'hub'
+}
+
+/* Состояние карточек хаба: done / locked + кнопка «Далее» */
+function applyHubLocks() {
+  const cards = document.querySelectorAll('#page-hub .hub-card');
+  cards.forEach((card, i) => {
+    card.classList.toggle('done', !!hubDone[i]);
+    // 1-я карточка всегда открыта; 2-я — после 1-го раздела; 3-я — после 2-го
+    const locked = i === 0 ? false : !hubDone[i - 1];
+    card.classList.toggle('locked', locked);
+  });
+  if (hubDone.every(Boolean)) document.getElementById('hub-next-row')?.classList.add('show');
 }
 
 /* ═══════════════════════════════════════════════
@@ -500,6 +537,65 @@ document.addEventListener('keydown', e => {
 });
 
 /* ═══════════════════════════════════════════════
+   Прогресс и SCORM
+   ───────────────────────────────────────────────
+   Состояние хранится в cmi.suspend_data (SCORM 1.2),
+   а как запасной вариант — в localStorage (для просмотра
+   вне LMS, например на GitHub Pages).
+═══════════════════════════════════════════════ */
+const PROGRESS_KEY = 'gostemania_progress';
+
+function collectState() {
+  return { unlocked: unlockedChapters, hub: hubDone.slice() };
+}
+
+function saveProgress() {
+  const json = JSON.stringify(collectState());
+  try { localStorage.setItem(PROGRESS_KEY, json); } catch (e) {}
+  if (window.SCORM && typeof SCORM.set === 'function') {
+    SCORM.set('cmi.suspend_data', json);
+    SCORM.set('cmi.core.lesson_status',
+      unlockedChapters >= CHAPTER_ORDER.length ? 'completed' : 'incomplete');
+    SCORM.commit();
+  }
+}
+
+function loadProgress() {
+  let json = '';
+  if (window.SCORM && typeof SCORM.get === 'function') {
+    try { json = SCORM.get('cmi.suspend_data') || ''; } catch (e) {}
+  }
+  if (!json) { try { json = localStorage.getItem(PROGRESS_KEY) || ''; } catch (e) {} }
+  if (json) {
+    try {
+      const s = JSON.parse(json);
+      if (typeof s.unlocked === 'number') {
+        unlockedChapters = Math.max(1, Math.min(s.unlocked, CHAPTER_ORDER.length));
+      }
+      if (Array.isArray(s.hub)) {
+        for (let i = 0; i < hubDone.length; i++) hubDone[i] = !!s.hub[i];
+      }
+    } catch (e) {}
+  }
+  applyHomeLocks();
+  applyHubLocks();
+}
+
+/* Замки на карточках глав главной страницы */
+function applyHomeLocks() {
+  CHAPTER_ORDER.forEach((ch, i) => {
+    const card = document.getElementById('home-card-' + (i + 1));
+    if (card) card.classList.toggle('locked', i >= unlockedChapters);
+  });
+}
+
+/* ═══════════════════════════════════════════════
    Init on load
 ═══════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => navigateTo('home'));
+document.addEventListener('DOMContentLoaded', () => {
+  navigateTo('home');
+  applyHomeLocks();
+});
+// SCORM API инициализируется на событие 'load' (scorm_api.js),
+// поэтому восстанавливаем прогресс тоже здесь — после инициализации.
+window.addEventListener('load', loadProgress);
