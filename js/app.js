@@ -554,8 +554,13 @@ function saveProgress() {
   try { localStorage.setItem(PROGRESS_KEY, json); } catch (e) {}
   if (window.SCORM && typeof SCORM.set === 'function') {
     SCORM.set('cmi.suspend_data', json);
-    SCORM.set('cmi.core.lesson_status',
-      unlockedChapters >= CHAPTER_ORDER.length ? 'completed' : 'incomplete');
+    // Статус «Завершён» НЕ ставится автоматически — только кнопкой
+    // «Завершить курс» (SCORM.complete()). Здесь лишь помечаем, что попытка
+    // начата, и никогда не понижаем уже зачтённый статус (passed/completed).
+    const status = SCORM.get('cmi.core.lesson_status');
+    if (status === '' || status === 'not attempted' || status === 'unknown') {
+      SCORM.set('cmi.core.lesson_status', 'incomplete');
+    }
     SCORM.commit();
   }
 }
