@@ -53,8 +53,16 @@
     </div>
   </div>
 
+  <!-- Предупреждение про режим предпросмотра -->
+  <div class="content-wrap" style="padding-top:24px;padding-bottom:0;">
+    <div class="preview-warning">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+      <span>Если открываешь курс в режиме «предпросмотра» с телефона — перейди на полную версию браузера.</span>
+    </div>
+  </div>
+
   <!-- Вводное видео -->
-  <div class="content-wrap" style="padding-top:40px;padding-bottom:24px;">
+  <div class="content-wrap" style="padding-top:24px;padding-bottom:24px;">
     <!-- embed: block1-intro -->
     <div class="video-wrap fade-in">
       <div style="position:relative;padding-top:56.25%;">
@@ -128,13 +136,17 @@
     </div>
 
     <div class="fade-in body-text" style="margin-bottom:48px;">
-      <p>Теперь покажем, из чего она состоит. 3 кита — то, на чём это держится. 4 навыка — то, что ты делаешь.</p>
+      <p>Теперь покажем, из чего она состоит. 3 кита — то, на чём держится Гостемания. 4 навыка — то, что ты делаешь.</p>
     </div>
 
     <!-- images/block1-infographic.jpg -->
-    <div class="fade-in img-slot infographic-slot" style="margin-bottom:48px;">
+    <div class="fade-in img-slot infographic-slot zoomable" style="margin-bottom:48px;"
+         onclick="openImageZoom('images/block1-infographic.jpg','Инфографика: 3 кита и 4 навыка')">
       <img src="images/block1-infographic.jpg" alt="Инфографика: 3 кита и 4 навыка"
            onerror="this.style.display='none'">
+      <button class="zoom-badge" type="button" aria-label="Увеличить">
+        <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+      </button>
       <div class="img-label">
         <svg width="28" height="28" fill="none" stroke="#502314" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
         Инфографика: 3 кита и 4 навыка<br>images/block1-infographic.jpg
@@ -397,7 +409,7 @@
         </div>
         <div class="sort-item" data-idx="2" draggable="true">
           <span class="sort-handle"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg></span>
-          «Примите, пожалуйста, наш комплемент — мороженое, в качестве извинения»
+          «Примите, пожалуйста, наш комплемент — десерт, в качестве извинения. Благодарим Вас за обратную связь! Вы помогаете нам становиться лучше»
         </div>
         <div class="sort-item" data-idx="3" draggable="true">
           <span class="sort-handle"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg></span>
@@ -584,7 +596,7 @@
               <div class="incident-card__divider"></div>
               <div class="incident-card__info">
                 <p class="incident-label">Примеры:</p>
-                <p>ожидание 4–8 мин, грязь, оплата, чек</p>
+                <p>ожидание 4–8 мин, грязь, оплата, шумные Гости, проблема с получением заказа, сбои в МП</p>
                 <p class="incident-label">Действие:</p>
                 <p>извиниться + решить на месте + комплемент</p>
               </div>
@@ -604,15 +616,18 @@
             </div>
             <div class="incident-card__body">
               <div class="incident-card__icons">
+                <span class="inc-emoji">🥤</span>
+                <span class="inc-emoji">🍰</span>
+                <p>или</p>
+                <span class="inc-emoji">🥤</span>
                 <span class="inc-emoji">🍟</span>
-                <span class="inc-emoji">🍔</span>
               </div>
               <div class="incident-card__divider"></div>
               <div class="incident-card__info">
                 <p class="incident-label">Примеры:</p>
-                <p>ожидание &gt;8 мин, ошибка сборки, невкусно / холодно, сдача</p>
+                <p>ожидание &gt;8 мин, ошибка сборки, невкусно / холодно, сдача, отсутствие блюда в меню</p>
                 <p class="incident-label">Действие:</p>
-                <p>извиниться + замена + комплемент</p>
+                <p>извиниться + решить на месте + комплемент</p>
               </div>
             </div>
           </div>
@@ -631,13 +646,14 @@
             <div class="incident-card__body">
               <div class="incident-card__icons">
                 <span class="inc-emoji">🍔</span>
-                <span class="inc-emoji">🥤</span>
+                <span class="inc-emoji">🍟</span>
                 <span class="inc-emoji">🍰</span>
+                <span class="inc-emoji">🥤</span>
               </div>
               <div class="incident-card__divider"></div>
               <div class="incident-card__info">
                 <p class="incident-label">Примеры:</p>
-                <p>инородный предмет, вред здоровью, насекомые, кража, порча, грубость</p>
+                <p>насекомые, кража, порча, грубость</p>
                 <p class="incident-label">Действие:</p>
                 <p>извиниться + замена + комплемент + заявка в SD</p>
               </div>
@@ -653,13 +669,14 @@
         </div><!-- /with-margin -->
         <!-- ── / ИНФОГРАФИКА: ТРИ УРОВНЯ ИНЦИДЕНТОВ ── -->
 
+        <!--
         <div class="fade-in" style="margin-bottom:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <span style="font-size:16px;">Скачай памятку, чтобы не потерять.</span>
           <a class="btn-download" href="files/Карманная карточка ДОБРО.pdf" download>
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
             Скачать памятку
           </a>
-        </div>
+        </div> -->
 
         <div class="fade-in body-text" style="margin-bottom:24px;">
           <p>Когда ты определил уровень инцидента, нужно выбрать инструмент. Их два.</p>
@@ -794,7 +811,7 @@
         <div class="faq-body"><div class="faq-body-inner">«К сожалению, мне потребуется помощь руководителя, давайте я приглашу менеджера, и мы решим, как лучше поступить в вашей ситуации». Не нарушайте правило ради скандала — лучше позвать старшего.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">У меня нет своей карты, а менеджер занят. Гость ждёт.<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+        <button class="faq-q" onclick="toggleFaq(this)">Я не обучен работе на кассе и у меня нет своей карты, а менеджер занят. Гость ждет.<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
         <div class="faq-body"><div class="faq-body-inner">Попросите любого коллегу, у которого есть карта и доступ к кассе, пробить комплемент за вас. Главное — не оставляйте Гостя без внимания.</div></div>
       </div>
       <div class="faq-item">
@@ -803,12 +820,39 @@
       </div>
     </div>
 
-    <div id="hub-next-row">
-      <button class="btn-next" onclick="navigateTo('block8')">
+    <p style="font-size:13px;font-weight:700;color:#FFAA00;letter-spacing:0.06em;text-transform:uppercase;margin:24px 0 4px;">Особые случаи</p>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Что относится к Инцидентам с юридическими рисками?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <ul class="based-ul" id="based-ul">
+            <li>• Вред здоровью Гостя (взрослого или ребёнка)</li>
+            <li>• Порча имущества Гостя (одежда, машина и др.)</li>
+            <li>• Требование денежной компенсации</li>
+            <li>• Угроза или факт обращения в Роспотребнадзор, суд, прокуратуру, СМИ</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Могу ли я сам решать такой инцидент?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
+        <div class="faq-body"><div class="faq-body-inner">Нет. Вся официальная переписка и переговоры по таким жалобам ведутся только специалистами Управления Гостевого сервиса (Отдел Клиентского сервиса) по установленному регламенту. Твоя задача — вежливо принять информацию, помочь в моменте (если это безопасно и разрешено) и передать инцидент руководителю.</div></div>
+      </div>
+    
+      <div id="hub-next-row">
+        <button class="btn-next" onclick="navigateTo('block8')">
+          Далее
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+
+
+    <!-- <div class="next-row">
+      <button class="btn-next" onclick="navigateTo('block2')">
         Далее
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </button>
-    </div>
+    </div> -->
 
   </div>
 </div>
@@ -859,7 +903,7 @@
     </div>
 
     <div class="fade-in body-text" style="margin-bottom:24px;">
-      <p>Замена — это когда Гость получает новое блюдо вместо того, которое ему не понравилось. Бесплатно. Потому что ошибка была на нашей стороне:</p>
+      <p>Замена — это когда Гость получает новое блюдо вместо того, которое ему не понравилось. <b>Бесплатно.</b> Потому что ошибка была на нашей стороне:</p>
       <ul class="based-ul">
         <li>Блюдо холодное или пережаренное</li>
         <li>Перепутали состав</li>
@@ -930,7 +974,6 @@
     </div>
     <div class="fade-in speech-wrap-reply" style="margin-bottom:32px;">
       <div class="speech-bubble-reply">Нисколько.
-Расходы на комплементы и замены из P&L вычитаются автоматически.
 Замена блюда и комплемент никак не влияет ни на твою зарплату, ни на ресторан. Это инструмент, который компания даёт тебе, чтобы удержать Гостя.
 Потерять одного Гостя — намного дороже, чем заменить один бургер и выдать комплемент.</div>
     </div>
@@ -961,7 +1004,7 @@
     <!-- ── / ИНФОГРАФИКА ── -->
 
     <div class="fade-in body-text" style="margin-bottom:16px;">
-      <p>И делать это может каждый обученный сотрудник прилавка, не только АУП.</p>
+      <p>И делать замену и выдавать комплемент может каждый обученный сотрудник, не только АУП.</p>
       <p>Чтобы провести замену, нужно:</p>
     </div>
 
@@ -970,6 +1013,14 @@
       <li><div class="step-num">2</div> Выбрать журнал «Потери на производстве»</li>
       <li><div class="step-num">3</div> Указать нужное блюдо и причину: «ДОБРО: замена продукции по жалобе Гостя»</li>
     </ul>
+
+    <div class="img-slot infographic-slot zoomable fade-in" style="margin-bottom:24px;"
+         onclick="openImageZoom('images/pls-pic1.jpg','Как провести замену в PLS')">
+      <img src="images/pls-pic1.jpg" alt="Как провести замену в PLS" onerror="this.style.display='none'">
+      <button class="zoom-badge" type="button" aria-label="Увеличить">
+        <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+      </button>
+    </div>
 
     <div class="callout fade-in" style="margin-bottom:40px;">
       <strong>Важно:</strong> Если одно и то же блюдо приходится заменять часто — это сигнал для всей команды. Нужно обсудить на ближайшей пятиминутке.
@@ -1051,13 +1102,17 @@
           <tr><td><span class="compl-emoji">🍰</span> <strong>Сладкий десерт</strong></td><td>Гость сыт, дети, жаркая погода, финал визита</td></tr>
           <tr><td><span class="compl-emoji">🍟</span> <strong>Закуска / гарнир</strong></td><td>Гость голоден, компания подростков</td></tr>
           <tr><td><span class="compl-emoji">🥤</span> <strong>Напиток</strong></td><td>Любая ситуация как базовый жест</td></tr>
-          <tr><td><span class="compl-emoji">🍔</span> <strong>Бургер</strong></td><td>Серьёзная проблема, разгневанный гость</td></tr>
+          <tr><td><span class="compl-emoji">🍔</span> <strong>Бургер</strong></td><td>Серьёзная проблема, разгневанный Гость</td></tr>
         </tbody>
       </table>
       <p style="font-size:14px;margin-top:10px;opacity:0.7;">Эта матрица — рекомендация, а не жёсткое правило.</p>
     </div>
 
-    <!-- videos/section2-dialogue.mp4 -->
+    <div class="fade-in" style="overflow-x:auto;margin-bottom:40px;">
+      <p>Итак, ты принял решение, следующий шаг — правильно выстоить диалог с Гостем </p>
+    </div>
+
+    <!-- videos/section2-dialogue.mp4 
     <div class="fade-in" style="margin-bottom:8px;">
       <p class="audio-label">videos/section2-dialogue.mp4</p>
       <div class="video-wrap" style="margin-bottom:20px;">
@@ -1065,7 +1120,15 @@
           <source src="videos/section2-dialogue.mp4" type="video/mp4">
         </video>
       </div>
+    </div> -->
+
+    <div class="fade-in" style="margin-bottom:8px;">
+      <p class="audio-label">audio/section1-dialogue.mp3</p>
+      <audio controls class="audio-embed" preload="none">
+        <source src="audio/section2-dialogue.mp3" type="audio/mpeg">
+      </audio>
     </div>
+
 
     <div class="fade-in" style="border-radius:16px;border:2px solid #F5EBDC;padding:20px;margin-bottom:24px;display:flex;flex-direction:column;gap:4px;">
       <div class="dialogue-line">
@@ -1098,9 +1161,9 @@
     </div>
   </div>
 
-    <div class="callout fade-in" style="margin-bottom:16px;">
+    <!-- <div class="callout fade-in" style="margin-bottom:16px;">
       <strong>Важно:</strong> Если появилось предупреждение «Превышение лимита» — нажми «Продолжить» и сообщи менеджеру.
-    </div>
+    </div> -->
 
     <div class="callout green fade-in" style="margin-bottom:40px;">
       <strong>Главное:</strong> комплемент — это подарок. Бесплатный. Без лишних списаний. Под своей картой. И без штрафов.
@@ -1152,6 +1215,7 @@
         <li>Давит на жалость</li>
       </ul>
       <p>Даже если Гость злоупотребляет, ДОБРО работает — просто без комплемента.</p>
+      <p>В этом случае твоя задача — вежливо и спокойно отказать, сохранив достоинство и бренда, и Гостя.</p>
     </div>
 
     <!-- Скрипт 1 — audio/section3-script-1.mp3 -->
@@ -1267,15 +1331,20 @@
     <div class="fade-in" style="margin-bottom:32px;">
       <h3 style="font-size:18px;margin-bottom:16px;">Материалы для скачивания:</h3>
       <div style="display:flex;flex-wrap:wrap;gap:12px;">
-        <a class="btn-download" href="files/Карманная карточка ДОБРО.pdf" download>
+        <a class="btn-download" href="files/ДОБРО.pdf" download>
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
           Памятка по ДОБРО
         </a>
 
-        <a class="btn-download" href="#" download>
+        <a class="btn-download" href="files/ГОСТЬ.pdf" download>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+          Памятка по эмоциям Гостя
+        </a>
+
+        <!-- <a class="btn-download" href="#" download>
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
           Таблица уровней инцидентов
-        </a>
+        </a> -->
       </div>
     </div>
 
@@ -1286,6 +1355,12 @@
       </button>
     </div>
   </div>
+</div>
+
+<!-- Модальное окно увеличения изображения -->
+<div id="image-zoom-overlay" class="image-zoom-overlay" onclick="closeImageZoom()">
+  <button class="image-zoom__close" type="button" aria-label="Закрыть" onclick="closeImageZoom()">✕</button>
+  <img id="image-zoom-img" class="image-zoom__img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
 <script src="js/app.js"></script>

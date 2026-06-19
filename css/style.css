@@ -347,11 +347,13 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   text-align: center;
   gap: 12px;
-  height: 100%;          /* одинаковая высота всех карточек в строке */
+  height: 100%;
+  container-type: inline-size;          /* одинаковая высота всех карточек в строке */
 }
+
 .card-big-word {
   font-family: 'Flame', sans-serif;
-  font-size: clamp(24px, 4vw, 52px);
+  font-size: clamp(24px, 18cqw, 48px);
   color: #FF8732;
   line-height: 1;
   min-height: 52px;      /* выравнивает подписи под словами разной длины */
@@ -609,7 +611,7 @@ h1, h2, h3, h4, h5 {
 .match-question.solved { border-color: #198737; background: #F0FBF3; }
 .match-options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .match-btn {
-  background: #F5EBDC;
+  background: #ffffff;
   border: 2px solid transparent;
   border-radius: 8px;
   padding: 8px 16px;
@@ -968,7 +970,7 @@ h1, h2, h3, h4, h5 {
 
 /* ── Горизонтальный (landscape) режим телефона ── */
 @media (orientation: landscape) and (max-height: 600px) {
-  .home-hero { height: auto; min-height: 320px; }
+  /* .home-hero { height: auto; min-height: 320px; } */
   .img-slot.infographic-slot img { max-height: 78vh; }
   .img-slot.gallery-slot { height: 70vh; max-height: 300px; }
   .img-slot.gallery-slot img { object-fit: contain; background: #F5EBDC; }
@@ -1285,7 +1287,7 @@ h1, h2, h3, h4, h5 {
   border-radius: 14px;
   padding: 12px 16px;
   font-family: 'Flame', sans-serif;
-  font-weight: 700;
+  font-weight: 300;
   font-size: 15px;
   color: #fff;
   cursor: pointer;
@@ -1490,7 +1492,7 @@ h1, h2, h3, h4, h5 {
 
 .incident-label {
   font-family: 'Flame', sans-serif;
-  font-weight: 700;
+  font-weight: 300;
   font-size: 14px;
   margin: 0 0 3px;
   line-height: 1.2;
@@ -1540,9 +1542,96 @@ h1, h2, h3, h4, h5 {
 }
 
 
-ul {
+.ul {
   list-style-type: disc; /* Стандартный круглый буллит */
 }
-based-ul {
+.based-ul {
   list-style-type: disc; /* Стандартный круглый буллит */
 }
+
+/* ══════════════════════════════════════
+   ПРЕДУПРЕЖДЕНИЕ ПРО РЕЖИМ ПРЕДПРОСМОТРА
+══════════════════════════════════════ */
+.preview-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 170, 0, 0.14);
+  border: 1px solid rgba(255, 170, 0, 0.4);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #502314;
+  opacity: 0.85;
+}
+.preview-warning svg { color: #D9820A; flex-shrink: 0; }
+
+/* ══════════════════════════════════════
+   УВЕЛИЧЕНИЕ ИЗОБРАЖЕНИЯ (лупа + модалка)
+══════════════════════════════════════ */
+/* Кликабельная картинка + значок лупы (на мобильных) */
+.zoomable { position: relative; }
+.zoom-badge {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  cursor: pointer;
+  display: none;                 /* по умолчанию скрыт (десктоп) */
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+@media (max-width: 760px) {
+  .zoomable { cursor: zoom-in; }
+  .zoom-badge { display: flex; } /* лупа видна на мобильной версии */
+}
+
+/* Полноэкранная модалка просмотра */
+.image-zoom-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.9);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.image-zoom-overlay.open { display: flex; }
+.image-zoom__img {
+  max-width: 96vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+/* В портретной ориентации поворачиваем картинку на 90°,
+   чтобы инфографику было видно горизонтально и крупно */
+@media (orientation: portrait) {
+  .image-zoom__img {
+    transform: rotate(90deg);
+    max-width: 92vh;   /* до поворота: ширина ≤ высота экрана */
+    max-height: 96vw;  /* до поворота: высота ≤ ширина экрана */
+  }
+}
+.image-zoom__close {
+  position: fixed;
+  top: 16px; right: 18px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+}
+.image-zoom__close:hover { background: rgba(255, 255, 255, 0.32); }

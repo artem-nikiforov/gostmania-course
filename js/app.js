@@ -19,6 +19,9 @@ let currentPage = 'home';
 let unlockedChapters = 1;            // сколько глав открыто на главной (1..5)
 
 function navigateTo(pageId) {
+  // Ставим на паузу любые медиа на покидаемой странице
+  if (pageId !== currentPage) stopMediaIn(document.getElementById('page-' + currentPage));
+
   PAGES.forEach(id => {
     const el = document.getElementById('page-' + id);
     if (el) el.classList.remove('active');
@@ -501,7 +504,7 @@ const DOBRO_DATA = {
     color: '#E89B1A',
     title: 'Продукт',
     text1: 'Каждая жалоба, списанная по ДОБРО, — сигнал для кухни.',
-    text2: 'Меньше ошибок по сборке = меньше списаний.'
+    text2: 'Меньше ошибок при приготовлении заказа = меньше списаний.'
   },
   sales: {
     color: '#2B7BB9',
@@ -512,7 +515,7 @@ const DOBRO_DATA = {
   clean: {
     color: '#198737',
     title: 'Чистота и оборудование',
-    text1: 'Жалоба на грязь через ДОБРО ведёт к анализу причин, а не просто к уборке «для галочки».',
+    text1: 'Любая жалоба на грязь, решенная с помощью ДОБРО, ведет к анализу причин, а не просто к уборке «для галочки»',
     text2: 'Ресторан чище. Оборудование вовремя ремонтируют.'
   }
 };
@@ -533,8 +536,39 @@ function closeDoproModal() {
 
 // Закрытие по Esc
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeDoproModal();
+  if (e.key === 'Escape') { closeDoproModal(); closeImageZoom(); }
 });
+
+/* ═══════════════════════════════════════════════
+   Пауза медиа при переходе между страницами
+   ───────────────────────────────────────────────
+   <video>/<audio> ставим на pause(); встроенные плееры в <iframe>
+   (PeerTube/BKTube и т.п.) останавливаем перезагрузкой src —
+   это надёжно работает у любого провайдера.
+═══════════════════════════════════════════════ */
+function stopMediaIn(pageEl) {
+  if (!pageEl) return;
+  pageEl.querySelectorAll('video, audio').forEach(m => { try { m.pause(); } catch (e) {} });
+  pageEl.querySelectorAll('iframe').forEach(f => {
+    const src = f.getAttribute('src');
+    if (src) f.setAttribute('src', src); // сброс src останавливает воспроизведение
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   Увеличение изображения (zoom-модалка)
+   ───────────────────────────────────────────────
+   Картинку всегда показываем горизонтально: в портретной ориентации
+   телефона CSS поворачивает её на 90° (см. .image-zoom__img в style.css).
+═══════════════════════════════════════════════ */
+function openImageZoom(src, alt) {
+  const img = document.getElementById('image-zoom-img');
+  if (img) { img.src = src; img.alt = alt || ''; }
+  document.getElementById('image-zoom-overlay')?.classList.add('open');
+}
+function closeImageZoom() {
+  document.getElementById('image-zoom-overlay')?.classList.remove('open');
+}
 
 /* ═══════════════════════════════════════════════
    Прогресс и SCORM
