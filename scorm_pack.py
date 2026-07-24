@@ -63,6 +63,12 @@ SCORM_API_JS = """\
 
     finish: function () {
       if (!_ready) return;
+      // Если курс ещё не завершён — помечаем попытку как возобновляемую:
+      // LMS сохранит suspend_data и на следующем входе выставит entry = "resume".
+      var st = _api.LMSGetValue("cmi.core.lesson_status");
+      if (st !== "passed" && st !== "completed" && st !== "failed") {
+        _api.LMSSetValue("cmi.core.exit", "suspend");
+      }
       _api.LMSCommit("");
       _api.LMSFinish("");
       _ready = false;
@@ -74,13 +80,21 @@ SCORM_API_JS = """\
       this.set("cmi.core.score.raw",     "100");
       this.set("cmi.core.score.min",     "0");
       this.set("cmi.core.score.max",     "100");
-      this.set("cmi.core.exit",          "normal");
+      this.set("cmi.core.exit",          "normal");  // завершение — не suspend
       this.finish();
     }
   };
 
-  window.addEventListener("load",         function () { SCORM.init(); });
+  // Инициализация — на load. Сохранение прогресса — при любом уходе со страницы.
+  window.addEventListener("load", function () { SCORM.init(); });
+  // beforeunload + pagehide: pagehide надёжнее срабатывает на мобильных браузерах.
   window.addEventListener("beforeunload", function () { SCORM.finish(); });
+  window.addEventListener("pagehide",     function () { SCORM.finish(); });
+  // Сворачивание/переключение вкладки на мобильном — фиксируем прогресс,
+  // но НЕ завершаем сессию (пользователь может вернуться).
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") SCORM.commit();
+  });
 
   window.SCORM = SCORM;
 })();

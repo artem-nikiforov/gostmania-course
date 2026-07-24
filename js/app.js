@@ -723,16 +723,23 @@ function applyHomeLocks() {
 /* ═══════════════════════════════════════════════
    Блок 1 — скролли-теллинг «стандарты = забота»
    ───────────────────────────────────────────────
-   61 кадр WebP (images/bite-seq/) листается скроллом
-   внутри липкой секции #bite-scrolly. Прогресс скролла
-   управляет и кадром на canvas, и активной карточкой.
+   61 кадр WebP (images/bite-seq/) в липкой секции #bite-scrolly.
+   Скролл переключает ТОЛЬКО карточки (шаги); анимация сама
+   доигрывает свой отрезок до «опорного» кадра шага и отдыхает
+   на нём — поэтому при чтении в кадре всегда осмысленная поза,
+   а не случайный стоп-кадр посреди жевания.
 ═══════════════════════════════════════════════ */
 const BITE_FRAMES = 61;
-const BITE_STEPS  = 4;                       // число карточек
+const BITE_STEPS  = 4;                    // число карточек
+const BITE_REST   = [14, 30, 39, 60];     // опорный кадр для каждого шага
+const BITE_FPS    = 14;                   // скорость доигрывания, кадров/сек
 const biteImages  = [];
 let biteInited    = false;
-let biteLastFrame = -1;
-let biteTicking   = false;
+let biteLastDrawn = -1;                   // последний отрисованный кадр (int)
+let biteFrameNow  = 0;                    // текущая позиция «плёнки» (float)
+let biteTarget    = 0;                    // куда доигрываем
+let biteStep      = -1;                   // активная карточка
+let biteTimer     = null;                 // интервал доигрывания
 
 function biteSrc(i) { return 'images/bite-seq/f_' + String(i + 1).padStart(2, '0') + '.webp'; }
 
@@ -761,38 +768,64 @@ function drawBiteFrame(idx) {
     if (biteImages[i] && biteImages[i].complete && biteImages[i].naturalWidth) { im = biteImages[i]; break; }
   }
   if (!im) return;
-  if (idx === biteLastFrame && im === biteImages[idx]) return;   // кадр не изменился
+  if (idx === biteLastDrawn && im === biteImages[idx]) return;   // кадр не изменился
   const ctx = canvas.getContext('2d');
   ctx.drawImage(im, 0, 0, canvas.width, canvas.height);
-  biteLastFrame = idx;
+  biteLastDrawn = idx;
+}
+
+/* Запустить доигрывание к целевому кадру (вперёд или назад).
+   Таймер, а не rAF: не глохнет при троттлинге (фон, энергосбережение),
+   а плавность при дискретных кадрах 14 fps не отличается. */
+function biteSetTarget(frame) {
+  biteTarget = frame;
+  // Со сниженной анимацией — мгновенный переход на опорный кадр
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    biteFrameNow = frame;
+    drawBiteFrame(frame);
+    return;
+  }
+  if (biteTimer) return;   // уже доигрывает — цель просто обновилась
+  const TICK_MS = 30;
+  biteTimer = setInterval(() => {
+    const delta = biteTarget - biteFrameNow;
+    if (Math.abs(delta) < 0.01) {
+      biteFrameNow = biteTarget;
+      clearInterval(biteTimer);
+      biteTimer = null;
+      return;
+    }
+    const move = Math.sign(delta) * Math.min(Math.abs(delta), BITE_FPS * TICK_MS / 1000);
+    biteFrameNow += move;
+    drawBiteFrame(Math.round(biteFrameNow));
+  }, TICK_MS);
 }
 
 function onBiteScroll() {
-  if (currentPage !== 'block1' || biteTicking) return;
-  biteTicking = true;
-  requestAnimationFrame(() => {
-    biteTicking = false;
-    const section = document.getElementById('bite-scrolly');
-    if (!section) return;
-    const rect = section.getBoundingClientRect();
-    const scrollable = rect.height - window.innerHeight;
-    if (scrollable <= 0) return;
-    // 0 — секция только прилипла, 1 — долистали до конца
-    const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+  if (currentPage !== 'block1') return;
+  const section = document.getElementById('bite-scrolly');
+  if (!section) return;
+  const rect = section.getBoundingClientRect();
+  // Пока секция не видна — не трогаем анимацию (bite сыграет на глазах у пользователя)
+  if (rect.top > window.innerHeight || rect.bottom < 0) return;
+  const scrollable = rect.height - window.innerHeight;
+  if (scrollable <= 0) return;
+  // 0 — секция только прилипла, 1 — долистали до конца
+  const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
 
-    // Кадр анимации
-    drawBiteFrame(Math.round(progress * (BITE_FRAMES - 1)));
-
-    // Активная карточка и прогресс-точки
-    const step = Math.min(BITE_STEPS - 1, Math.floor(progress * BITE_STEPS));
+  // Активный шаг: карточки + прогресс-точки + цель анимации
+  const step = Math.min(BITE_STEPS - 1, Math.floor(progress * BITE_STEPS));
+  if (step !== biteStep) {
+    biteStep = step;
     document.querySelectorAll('#bite-card-stack .bite-card').forEach((c, i) =>
       c.classList.toggle('active', i === step));
     document.querySelectorAll('#bite-progress .bite-progress__dot').forEach((d, i) =>
       d.classList.toggle('active', i <= step));
+    biteSetTarget(BITE_REST[step]);
+  }
 
-    // Подсказка исчезает ближе к концу
-    document.querySelector('.bite-hint')?.classList.toggle('gone', progress > 0.85);
-  });
+  // Подсказка исчезает ближе к концу
+  document.querySelector('.bite-hint')?.classList.toggle('gone', progress > 0.85);
 }
 
 /* ═══════════════════════════════════════════════
