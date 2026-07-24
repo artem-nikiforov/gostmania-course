@@ -1,22 +1,24 @@
 /* ═══════════════════════════════════════════════
    Router
 ═══════════════════════════════════════════════ */
-const PAGES = ['home','block1','block2','block3','hub','section1','section2','section3','block8'];
+const PAGES = ['home','block1','block2','block3','hub','section1','section2','section3','test','block8'];
 const CHAPTER_NAMES = {
   home:     '',
   block1:   'Блок 1. Философия Гостемании',
   block2:   'Блок 2. Алгоритм ДОБРО',
   block3:   'Блок 3. Работа с инцидентами',
-  hub:      'Блок 4. Инструменты',
+  hub:      'Блок 4. Замена и комплемент',
   section1: '4.1 Замена + Комплемент',
   section2: '4.2 Комплемент',
   section3: '4.3 Особые случаи',
-  block8:   'Блок 5. Заключение',
+  test:     'Блок 5. Итоговый тест',
+  block8:   'Блок 6. Заключение',
 };
-const CHAPTER_ORDER = ['block1','block2','block3','hub','block8'];
+const CHAPTER_ORDER = ['block1','block2','block3','hub','test','block8'];
 const hubDone = [false, false, false];
 let currentPage = 'home';
-let unlockedChapters = 1;            // сколько глав открыто на главной (1..5)
+let unlockedChapters = 1;            // сколько глав открыто на главной (1..6)
+let testPassed = false;             // сдан ли итоговый тест (гейт перед «Заключением»)
 
 function navigateTo(pageId) {
   // Ставим на паузу любые медиа на покидаемой странице
@@ -47,21 +49,52 @@ function navigateTo(pageId) {
     document.getElementById('progress-bar').style.width = '0%';
   }
 
+  updateBackBtn(pageId);
   setTimeout(initFadeIn, 50);
 
+  if (pageId === 'block1')   initBiteScrolly();
   if (pageId === 'block2')   initGallery();
-  if (pageId === 'block3')   { initSortable(); initVideoQuiz(); }
+  if (pageId === 'block3')   initBlock3();
   if (pageId === 'hub')      applyHubLocks();
   if (pageId === 'section1') initSection1Warmup();
   if (pageId === 'section2') initSection2Warmup();
   if (pageId === 'section3') initSection3Warmup();
+  if (pageId === 'test')     initTest();
 
-  // Последовательная разблокировка глав на главной + запись в SCORM
+  // Последовательная разблокировка глав на главной + запись в SCORM.
+  // Особый случай: посещение теста НЕ открывает «Заключение» — оно
+  // открывается только после сдачи теста (см. passTest()).
   const ci = CHAPTER_ORDER.indexOf(pageId);
   if (ci !== -1) {
-    const newUnlocked = Math.min(ci + 2, CHAPTER_ORDER.length);
+    const bump = (pageId === 'test') ? 1 : 2;           // тест не разблокирует block8
+    const newUnlocked = Math.min(ci + bump, CHAPTER_ORDER.length);
     if (newUnlocked > unlockedChapters) { unlockedChapters = newUnlocked; saveProgress(); }
     applyHomeLocks();
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Кнопка «Назад» в шапке — к предыдущей главе
+═══════════════════════════════════════════════ */
+function navBack() {
+  if (['section1','section2','section3'].includes(currentPage)) { navigateTo('hub'); return; }
+  const idx = CHAPTER_ORDER.indexOf(currentPage);
+  if (idx > 0) navigateTo(CHAPTER_ORDER[idx - 1]);
+  else navigateTo('home');
+}
+
+function updateBackBtn(pageId) {
+  const btn = document.getElementById('nav-back-btn');
+  if (!btn) return;
+  const idx = CHAPTER_ORDER.indexOf(pageId);
+  const isSection = ['section1','section2','section3'].includes(pageId);
+  const label = document.getElementById('nav-back-label');
+  // Прячем на главной и на первой главе (возвращаться некуда)
+  const show = isSection || idx > 0;
+  btn.style.display = show ? 'inline-flex' : 'none';
+  if (label && show) {
+    if (isSection) label.textContent = 'К разделам';
+    else label.textContent = CHAPTER_NAMES[CHAPTER_ORDER[idx - 1]]?.split('.')[0] || 'Назад';
   }
 }
 
@@ -111,14 +144,72 @@ function toggleFaq(btn) {
 }
 
 /* ═══════════════════════════════════════════════
-   Block 3 – Sortable order trainer
+   Block 3 – Инициализация тренажёра (упр. А + Б + видео)
 ═══════════════════════════════════════════════ */
-const CORRECT_ORDER = [1, 3, 0, 2]; // correct indices
+function initBlock3() {
+  // Сброс видимости шагов при каждом входе
+  document.getElementById('exercise-b')?.classList.add('hidden');
+  document.getElementById('exa-next')?.style.setProperty('display', 'none');
+  document.getElementById('exb-next')?.style.setProperty('display', 'none');
+  document.getElementById('video-section')?.classList.add('hidden');
+  clearFeedback('exa-feedback');
+  clearFeedback('sort-feedback');
+
+  // Упражнение А — два столбца
+  resetZonePool('exa-pool', 'exa-zone-help', 'exa-zone-bad');
+  initZoneSort('exa-pool', 'exa-zone-help', 'exa-zone-bad');
+  // Упражнение Б — порядок фрагментов
+  initSortable();
+  // Видеотренажёр
+  initVideoQuiz();
+}
+
+/* ═══════════════════════════════════════════════
+   Block 3 – Упражнение А: фразы по двум столбцам
+═══════════════════════════════════════════════ */
+function checkExA() {
+  const help = [...document.getElementById('exa-zone-help').querySelectorAll('.drag-chip')].map(c => c.dataset.key);
+  const bad  = [...document.getElementById('exa-zone-bad').querySelectorAll('.drag-chip')].map(c => c.dataset.key);
+  const cHelp = ['help1','help2','help3'];
+  const cBad  = ['bad1','bad2','bad3'];
+  const setEq = (a,b) => a.length === b.length && a.every(v => b.includes(v));
+  const ok = setEq(help, cHelp) && setEq(bad, cBad);
+  const fb = document.getElementById('exa-feedback');
+  fb.className = 'feedback-box show ' + (ok ? 'correct' : 'incorrect');
+  fb.innerHTML = ok
+    ? '<strong>Верно!</strong> Помогают фразы, где ты признаёшь проблему, действуешь и благодаришь за обратную связь. Оправдания, отговорки и перекладывание ожидания на Гостя — только злят.'
+    : '<strong>Почти.</strong> Помогают фразы, где ты признаёшь проблему, решаешь её и благодаришь. Оправдания («много заказов», «повара не справляются»), отговорки и «подождите ещё» — усугубляют.';
+  document.getElementById('exa-next').style.display = 'block';
+}
+
+/* Показать упражнение Б */
+function revealExB() {
+  const ex = document.getElementById('exercise-b');
+  if (ex) { ex.classList.remove('hidden'); ex.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  document.getElementById('exa-next').style.display = 'none';
+}
+
+/* Показать видеотренажёр (после упр. Б) */
+function revealMoodTrainer() {
+  const vs = document.getElementById('video-section');
+  if (vs) { vs.classList.remove('hidden'); setTimeout(initFadeIn, 50); vs.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  document.getElementById('exb-next').style.display = 'none';
+}
+
+/* ═══════════════════════════════════════════════
+   Block 3 – Упражнение Б: порядок фрагментов
+═══════════════════════════════════════════════ */
+const CORRECT_ORDER = [0, 1, 2, 3, 4]; // верный порядок фрагментов (по data-idx)
 
 function initSortable() {
   const list = document.getElementById('sortable-list');
   if (!list) return;
   let dragEl = null;
+
+  // Перемешиваем при каждом входе; обработчики вешаем один раз
+  shuffleChildren(list);
+  if (list.dataset.sortBound) return;
+  list.dataset.sortBound = '1';
 
   list.querySelectorAll('.sort-item').forEach(item => {
     item.addEventListener('dragstart', () => {
@@ -206,12 +297,10 @@ function checkSortOrder() {
   const fb = document.getElementById('sort-feedback');
   fb.className = 'feedback-box show ' + (isCorrect ? 'correct' : 'incorrect');
   fb.innerHTML = isCorrect
-    ? '<strong>Верно!</strong> Это 4 шага по работе с инцидентом. Кто-то понимает алгоритм интуитивно, но чтобы ты владел им профессионально — давай запомним визуальный алгоритм.'
-    : '<strong>Неверно.</strong> Давай разберём правильные шаги — чтобы ты владел алгоритмом профессионально. Смотри ниже 4 шага.';
+    ? '<strong>Верно!</strong> Сначала признаём правоту Гостя, ускоряем заказ, извиняемся, решаем проблему с комплементом и благодарим за обратную связь.'
+    : '<strong>Не совсем.</strong> Правильный порядок: сначала признать правоту Гостя, затем проверить заказ, извиниться, решить проблему с комплементом и в конце — поблагодарить за обратную связь.';
 
-  const analysis = document.getElementById('sort-analysis');
-  if (analysis) analysis.classList.remove('hidden');
-  const nextBtn = document.getElementById('sort-next-btn');
+  const nextBtn = document.getElementById('exb-next');
   if (nextBtn) nextBtn.style.display = 'block';
 }
 
@@ -580,7 +669,7 @@ function closeImageZoom() {
 const PROGRESS_KEY = 'gostemania_progress';
 
 function collectState() {
-  return { unlocked: unlockedChapters, hub: hubDone.slice() };
+  return { unlocked: unlockedChapters, hub: hubDone.slice(), test: testPassed };
 }
 
 function saveProgress() {
@@ -614,6 +703,9 @@ function loadProgress() {
       if (Array.isArray(s.hub)) {
         for (let i = 0; i < hubDone.length; i++) hubDone[i] = !!s.hub[i];
       }
+      if (typeof s.test === 'boolean') testPassed = s.test;
+      // Если тест сдан — «Заключение» должно быть открыто
+      if (testPassed) unlockedChapters = Math.max(unlockedChapters, CHAPTER_ORDER.length);
     } catch (e) {}
   }
   applyHomeLocks();
@@ -626,6 +718,246 @@ function applyHomeLocks() {
     const card = document.getElementById('home-card-' + (i + 1));
     if (card) card.classList.toggle('locked', i >= unlockedChapters);
   });
+}
+
+/* ═══════════════════════════════════════════════
+   Блок 1 — скролли-теллинг «стандарты = забота»
+   ───────────────────────────────────────────────
+   61 кадр WebP (images/bite-seq/) листается скроллом
+   внутри липкой секции #bite-scrolly. Прогресс скролла
+   управляет и кадром на canvas, и активной карточкой.
+═══════════════════════════════════════════════ */
+const BITE_FRAMES = 61;
+const BITE_STEPS  = 4;                       // число карточек
+const biteImages  = [];
+let biteInited    = false;
+let biteLastFrame = -1;
+let biteTicking   = false;
+
+function biteSrc(i) { return 'images/bite-seq/f_' + String(i + 1).padStart(2, '0') + '.webp'; }
+
+function initBiteScrolly() {
+  if (biteInited) { onBiteScroll(); return; }
+  biteInited = true;
+  // Предзагрузка кадров: первый кадр рисуем сразу, как только он готов
+  for (let i = 0; i < BITE_FRAMES; i++) {
+    const im = new Image();
+    im.decoding = 'async';
+    im.src = biteSrc(i);
+    if (i === 0) im.onload = () => drawBiteFrame(0);
+    biteImages.push(im);
+  }
+  window.addEventListener('scroll', onBiteScroll, { passive: true });
+  window.addEventListener('resize', onBiteScroll, { passive: true });
+  onBiteScroll();
+}
+
+/* Рисуем кадр idx; если он ещё не загрузился — ближайший загруженный до него */
+function drawBiteFrame(idx) {
+  const canvas = document.getElementById('bite-canvas');
+  if (!canvas) return;
+  let im = null;
+  for (let i = idx; i >= 0; i--) {
+    if (biteImages[i] && biteImages[i].complete && biteImages[i].naturalWidth) { im = biteImages[i]; break; }
+  }
+  if (!im) return;
+  if (idx === biteLastFrame && im === biteImages[idx]) return;   // кадр не изменился
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(im, 0, 0, canvas.width, canvas.height);
+  biteLastFrame = idx;
+}
+
+function onBiteScroll() {
+  if (currentPage !== 'block1' || biteTicking) return;
+  biteTicking = true;
+  requestAnimationFrame(() => {
+    biteTicking = false;
+    const section = document.getElementById('bite-scrolly');
+    if (!section) return;
+    const rect = section.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    if (scrollable <= 0) return;
+    // 0 — секция только прилипла, 1 — долистали до конца
+    const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+
+    // Кадр анимации
+    drawBiteFrame(Math.round(progress * (BITE_FRAMES - 1)));
+
+    // Активная карточка и прогресс-точки
+    const step = Math.min(BITE_STEPS - 1, Math.floor(progress * BITE_STEPS));
+    document.querySelectorAll('#bite-card-stack .bite-card').forEach((c, i) =>
+      c.classList.toggle('active', i === step));
+    document.querySelectorAll('#bite-progress .bite-progress__dot').forEach((d, i) =>
+      d.classList.toggle('active', i <= step));
+
+    // Подсказка исчезает ближе к концу
+    document.querySelector('.bite-hint')?.classList.toggle('gone', progress > 0.85);
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   Итоговый тест (Блок 5)
+   ───────────────────────────────────────────────
+   Порог сдачи — 80% (8 из 10). При провале — заново.
+   Варианты внутри вопроса перемешиваются, чтобы «правильные»
+   не оказывались всегда сверху. multi — несколько верных.
+═══════════════════════════════════════════════ */
+const TEST_PASS_RATIO = 0.8;
+
+const TEST_QUESTIONS = [
+  { q: 'Какие ситуации относятся к критическому уровню инцидента?', multi: true,
+    options: [
+      { t: 'Насекомое в ресторане', correct: true },
+      { t: 'Кража имущества', correct: true },
+      { t: 'Грубость сотрудника', correct: true },
+      { t: 'Долгое ожидание заказа более 8 минут', correct: false },
+      { t: 'Холодный бургер', correct: false },
+    ] },
+  { q: 'Почему при инциденте нужно выдавать Гостю комплемент?', multi: true,
+    options: [
+      { t: 'Это помогает сохранить лояльность Гостя', correct: true },
+      { t: 'Потерять Гостя дороже, чем подарить комплемент', correct: true },
+      { t: 'Чтобы Гости чувствовали нашу заботу', correct: true },
+      { t: 'Для выполнения плана по комплементам', correct: false },
+      { t: 'Это требование Компании, которое нужно соблюдать', correct: false },
+    ] },
+  { q: 'Гость жалуется, что ему выдали холодный сэндвич. Что должен сделать сотрудник?', multi: true,
+    options: [
+      { t: 'Извиниться', correct: true },
+      { t: 'Заменить блюдо', correct: true },
+      { t: 'Предложить комплемент', correct: true },
+      { t: 'Объяснить, что температура соответствует стандарту', correct: false },
+      { t: 'Предложить приобрести новый сэндвич', correct: false },
+    ] },
+  { q: 'Гость спокойно говорит: «Котлета сухая». Как лучше начать разговор?', multi: false,
+    options: [
+      { t: '«Я понимаю Вас. Давайте разберёмся, что именно не так».', correct: true },
+      { t: '«Нам жаль, что Вы расстроены. Наши котлеты готовятся на огне и небольшая сухость — это нормально».', correct: false },
+      { t: '«Подскажите, сколько времени прошло после получения Вашего заказа?»', correct: false },
+      { t: '«Простите нас, пожалуйста, я сейчас же позову руководителя».', correct: false },
+    ] },
+  { q: 'Гость регулярно требует комплемент без объективной причины. Как следует поступить?', multi: true,
+    options: [
+      { t: 'Сохранять спокойствие', correct: true },
+      { t: 'Сослаться на правила предоставления комплементов', correct: true },
+      { t: 'При необходимости пригласить руководителя', correct: true },
+      { t: 'Вежливо попросить Гостя уйти', correct: false },
+      { t: 'Вступить с Гостем в спор', correct: false },
+    ] },
+  { q: 'Во время сборки заказа ты заметил ошибку в приготовлении закуски. Что следует сделать?', multi: false,
+    options: [
+      { t: 'Переделать блюдо и оформить списание', correct: true },
+      { t: 'Выдать заказ как есть', correct: false },
+      { t: 'Переделать блюдо без списания', correct: false },
+      { t: 'Спросить у Гостя, готов ли он подождать исправления', correct: false },
+    ] },
+  { q: 'Что должен сделать сотрудник на шаге «Отметь важность обратной связи» алгоритма ДОБРО?', multi: false,
+    options: [
+      { t: 'Поблагодарить Гостя за обращение', correct: true },
+      { t: 'Объяснить причину ошибки', correct: false },
+      { t: 'Предложить комплемент', correct: false },
+      { t: 'Передать жалобу руководителю', correct: false },
+    ] },
+  { q: 'Определять настроение Гостя нужно для того, чтобы…', multi: false,
+    options: [
+      { t: '…подобрать подходящие слова и способ решения ситуации', correct: true },
+      { t: '…определить, нужно ли выдать комплемент', correct: false },
+      { t: '…понять, нужно ли предоставлять замену блюда и оформлять списание', correct: false },
+      { t: '…дать понять Гостю, что его услышали', correct: false },
+    ] },
+  { q: 'В зале ты заметил грязный столик раньше, чем на него обратил внимание Гость. Что следует сделать?', multi: true,
+    options: [
+      { t: 'Немедленно убрать столик', correct: true },
+      { t: 'Проверить чистоту соседних столов', correct: true },
+      { t: 'Позаботиться о том, чтобы следующий Гость сел за чистый стол', correct: true },
+      { t: 'Дождаться замечания от Гостя', correct: false },
+      { t: 'Проверить график уборки', correct: false },
+    ] },
+  { q: 'Гость говорит, что ему не нравится внешний вид сэндвича. На твой взгляд, сэндвич собран правильно. Как поступишь?', multi: false,
+    options: [
+      { t: 'Уточню, что именно не нравится Гостю, и доверюсь его мнению. Предложу переделать блюдо и выдам комплемент', correct: true },
+      { t: 'Объясню, что блюдо выглядит хорошо и приготовлено по стандартам, предложу десерт в качестве комплемента', correct: false },
+      { t: 'Объясню, что блюдо приготовлено правильно, и предложу заказать другой сэндвич', correct: false },
+      { t: 'Расскажу, что внешний вид блюда может отличаться от изображения в меню, это нормально', correct: false },
+    ] },
+];
+
+// Порядок вариантов на текущую попытку (перемешивается при initTest)
+let testOptionOrder = [];
+
+function initTest() {
+  // Порядок вариантов перемешиваем заново на каждую попытку
+  testOptionOrder = TEST_QUESTIONS.map(qq => shuffledIndices(qq.options.length));
+  renderTest();
+  document.getElementById('test-result').className = 'feedback-box';
+  document.getElementById('test-result').innerHTML = '';
+  document.getElementById('test-retake-row').style.display = 'none';
+  document.getElementById('test-pass-row').style.display = testPassed ? 'block' : 'none';
+  document.getElementById('test-submit').style.display = 'inline-flex';
+}
+
+function shuffledIndices(n) {
+  const a = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+function renderTest() {
+  const box = document.getElementById('test-questions');
+  if (!box) return;
+  box.innerHTML = TEST_QUESTIONS.map((qq, qi) => {
+    const hint = qq.multi ? 'Выбери все верные варианты' : 'Выбери один вариант';
+    const opts = testOptionOrder[qi].map(oi => {
+      const inputType = qq.multi ? 'checkbox' : 'radio';
+      return `<label class="test-option">
+        <input type="${inputType}" name="tq-${qi}" value="${oi}">
+        <span>${qq.options[oi].t}</span>
+      </label>`;
+    }).join('');
+    return `<div class="test-question" id="test-q-${qi}">
+      <p class="test-q-title"><span class="test-q-num">${qi + 1}</span>${qq.q}</p>
+      <p class="test-q-hint">${hint}</p>
+      <div class="test-options">${opts}</div>
+    </div>`;
+  }).join('');
+}
+
+function checkTest() {
+  let correctCount = 0;
+  TEST_QUESTIONS.forEach((qq, qi) => {
+    const chosen = [...document.querySelectorAll(`input[name="tq-${qi}"]:checked`)].map(i => parseInt(i.value));
+    const correctSet = qq.options.map((o, i) => o.correct ? i : -1).filter(i => i >= 0);
+    const ok = chosen.length === correctSet.length && chosen.every(v => correctSet.includes(v));
+    if (ok) correctCount++;
+    const qEl = document.getElementById('test-q-' + qi);
+    if (qEl) { qEl.classList.remove('q-correct', 'q-wrong'); qEl.classList.add(ok ? 'q-correct' : 'q-wrong'); }
+  });
+
+  const total = TEST_QUESTIONS.length;
+  const passed = correctCount / total >= TEST_PASS_RATIO;
+  const result = document.getElementById('test-result');
+  result.className = 'feedback-box show ' + (passed ? 'correct' : 'incorrect');
+
+  if (passed) {
+    testPassed = true;
+    unlockedChapters = Math.max(unlockedChapters, CHAPTER_ORDER.length); // открываем «Заключение»
+    saveProgress();
+    applyHomeLocks();
+    result.innerHTML = `<strong>Тест сдан!</strong> Верных ответов: ${correctCount} из ${total}. Заключение открыто.`;
+    document.getElementById('test-submit').style.display = 'none';
+    document.getElementById('test-retake-row').style.display = 'none';
+    document.getElementById('test-pass-row').style.display = 'block';
+  } else {
+    result.innerHTML = `<strong>Пока не сдан.</strong> Верных ответов: ${correctCount} из ${total}. Нужно минимум ${Math.ceil(total * TEST_PASS_RATIO)}. Отмеченные красным вопросы — с ошибкой. Попробуй ещё раз.`;
+    document.getElementById('test-retake-row').style.display = 'block';
+    document.getElementById('test-pass-row').style.display = 'none';
+  }
+  result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function retakeTest() {
+  initTest();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ═══════════════════════════════════════════════

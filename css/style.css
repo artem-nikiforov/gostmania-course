@@ -1635,3 +1635,251 @@ h1, h2, h3, h4, h5 {
   z-index: 10001;
 }
 .image-zoom__close:hover { background: rgba(255, 255, 255, 0.32); }
+
+/* ══════════════════════════════════════
+   КНОПКА «НАЗАД» В ШАПКЕ
+══════════════════════════════════════ */
+.nav-left { display: flex; align-items: center; gap: 8px; }
+.nav-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #502314;
+  opacity: 0.7;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-left: 1px solid #EDE5D9;
+  transition: color 0.2s, opacity 0.2s;
+}
+.nav-back-btn:hover { color: #FF8732; opacity: 1; }
+
+/* ══════════════════════════════════════
+   ДЛИННЫЕ ЧИПЫ-ФРАЗЫ (упражнение А в блоке 3)
+══════════════════════════════════════ */
+.drag-chip.drag-chip--text {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  white-space: normal;
+  max-width: 100%;
+}
+
+/* ══════════════════════════════════════
+   ИТОГОВЫЙ ТЕСТ
+══════════════════════════════════════ */
+.test-question {
+  background: #F5EBDC;
+  border-radius: 16px;
+  padding: 20px 20px 8px;
+  margin-bottom: 16px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.test-question.q-correct { border-color: #198737; background: #F0FBF3; }
+.test-question.q-wrong   { border-color: #D62300; background: #FDF1EF; }
+
+.test-q-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.test-q-num {
+  flex-shrink: 0;
+  min-width: 26px; height: 26px;
+  border-radius: 50%;
+  background: #2B7BB9;
+  color: #fff;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.test-q-hint {
+  font-size: 12px;
+  opacity: 0.55;
+  margin: 0 0 12px 36px;
+  font-family: 'Roboto', sans-serif;
+}
+.test-options { display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; }
+.test-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.test-option:hover { border-color: #FFD9AE; }
+.test-option input { margin-top: 2px; width: 18px; height: 18px; flex-shrink: 0; accent-color: #2B7BB9; cursor: pointer; }
+
+/* ══════════════════════════════════════
+   СКРОЛЛИ-ТЕЛЛИНГ «СТАНДАРТЫ = ЗАБОТА» (блок 1)
+   Покадровая анимация видео, управляемая скроллом,
+   + сменяющиеся карточки слева.
+══════════════════════════════════════ */
+.bite-scrolly {
+  /* Высота задаёт «длину» истории: чем выше, тем медленнее листается */
+  height: 420vh;
+  background: #FBF6EE;
+}
+
+.bite-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;             /* мобильные браузеры с динамической панелью */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 76px 20px 20px;    /* отступ под фиксированную шапку */
+  overflow: hidden;
+}
+
+.bite-stage {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Медиа (canvas) ── */
+.bite-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+#bite-canvas {
+  width: 100%;
+  max-width: min(560px, 82vh);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: 24px;
+  background: #F5EBDC;
+  box-shadow: 0 18px 48px rgba(80, 35, 20, 0.18);
+  display: block;
+}
+
+/* ── Карточки ── */
+.bite-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+.bite-card-stack {
+  position: relative;
+  min-height: 240px;
+}
+.bite-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 30px;
+  box-shadow: 0 10px 32px rgba(80, 35, 20, 0.10);
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events: none;
+}
+.bite-card.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.bite-card__eyebrow {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FF8732;
+  margin: 0 0 10px;
+}
+.bite-card__title {
+  font-family: 'Flame', sans-serif;
+  font-size: clamp(24px, 3.4vw, 36px);
+  color: #502314;
+  margin: 0 0 12px;
+  line-height: 1.05;
+}
+.bite-card__text {
+  font-family: 'Roboto', sans-serif;
+  font-size: clamp(14px, 1.8vw, 16px);
+  line-height: 1.55;
+  color: #502314;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Финальная карточка — акцентная */
+.bite-card--final { background: #FF8732; }
+.bite-card--final .bite-card__eyebrow { color: rgba(255,255,255,0.85); }
+.bite-card--final .bite-card__title,
+.bite-card--final .bite-card__text { color: #fff; }
+.bite-card--final .bite-card__text { opacity: 0.95; }
+
+/* ── Прогресс-точки ── */
+.bite-progress { display: flex; gap: 8px; }
+.bite-progress__dot {
+  width: 26px;
+  height: 5px;
+  border-radius: 3px;
+  background: #E8DCC8;
+  transition: background 0.3s;
+}
+.bite-progress__dot.active { background: #FF8732; }
+
+/* ── Подсказка ── */
+.bite-hint {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  color: #502314;
+  opacity: 0.45;
+  padding: 14px 0 6px;
+  transition: opacity 0.4s;
+}
+.bite-hint.gone { opacity: 0; }
+
+/* ── Мобильная раскладка: анимация сверху, карточка под ней ── */
+@media (max-width: 760px) {
+  .bite-scrolly { height: 460vh; }
+  .bite-sticky { padding: 68px 16px 12px; }
+  .bite-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    align-content: center;
+  }
+  .bite-media { order: -1; }
+  #bite-canvas { max-width: min(78vw, 46vh); border-radius: 18px; }
+  .bite-card-stack { min-height: 210px; }
+  .bite-card { padding: 20px 20px; justify-content: flex-start; }
+  .bite-progress { justify-content: center; }
+}

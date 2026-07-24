@@ -24,12 +24,18 @@
 <!-- ═══════ TOP NAV ═══════ -->
 <nav id="top-nav">
   <div class="nav-inner">
-    <button class="nav-home-btn" onclick="navigateTo('home')">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-      </svg>
-      <span class="hidden sm:inline">Главная</span>
-    </button>
+    <div class="nav-left">
+      <button class="nav-home-btn" onclick="navigateTo('home')">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span class="hidden sm:inline">Главная</span>
+      </button>
+      <button id="nav-back-btn" class="nav-back-btn" onclick="navBack()" style="display:none;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        <span id="nav-back-label" class="hidden sm:inline">Назад</span>
+      </button>
+    </div>
     <span id="nav-chapter"></span>
     <span id="nav-progress"></span>
   </div>
@@ -57,7 +63,7 @@
   <div class="content-wrap" style="padding-top:24px;padding-bottom:0;">
     <div class="preview-warning">
       <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-      <span>Если открываешь курс в режиме «предпросмотра» с телефона — перейди на полную версию браузера.</span>
+      <span>Если ты проходишь курс по ссылке из мессенджера, скопируй ссылку и открой курс в приложении браузера.</span>
     </div>
   </div>
 
@@ -100,9 +106,14 @@
         <div class="chapter-num" style="background:#198737;">4</div>
         <div><h3>Замена и комплемент</h3><p>Три раздела: замена, комплемент, особые случаи</p></div>
       </div>
-      <div class="chapter-card full-width" id="home-card-5" onclick="navigateTo('block8')">
+      <div class="chapter-card" id="home-card-5" onclick="navigateTo('test')">
         <div class="chapter-lock"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-        <div class="chapter-num" style="background:#502314;">5</div>
+        <div class="chapter-num" style="background:#2B7BB9;">5</div>
+        <div><h3>Итоговое тестирование</h3><p>Проверка знаний перед завершением</p></div>
+      </div>
+      <div class="chapter-card full-width" id="home-card-6" onclick="navigateTo('block8')">
+        <div class="chapter-lock"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path stroke-linecap="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <div class="chapter-num" style="background:#502314;">6</div>
         <div><h3>Заключение</h3><p>Итоги и материалы для скачивания</p></div>
       </div>
     </div>
@@ -135,24 +146,63 @@
       <p style="font-size:clamp(20px,3.5vw,28px);font-weight:500;line-height:1.4;">Гостемания — это твоё внимание к тому, кто рядом.</p>
     </div>
 
-    <div class="fade-in body-text" style="margin-bottom:48px;">
-      <p>Теперь покажем, из чего она состоит. 3 кита — то, на чём держится Гостемания. 4 навыка — то, что ты делаешь.</p>
+    <div class="fade-in body-text" style="margin-bottom:24px;">
+      <p>Из чего складывается это внимание? Покажем на одном бургере — просто листай дальше.</p>
     </div>
+  </div>
 
-    <!-- images/block1-infographic.jpg -->
-    <div class="fade-in img-slot infographic-slot zoomable" style="margin-bottom:48px;"
-         onclick="openImageZoom('images/block1-infographic.jpg','Инфографика: 3 кита и 4 навыка')">
-      <img src="images/block1-infographic.jpg" alt="Инфографика: 3 кита и 4 навыка"
-           onerror="this.style.display='none'">
-      <button class="zoom-badge" type="button" aria-label="Увеличить">
-        <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
-      </button>
-      <div class="img-label">
-        <svg width="28" height="28" fill="none" stroke="#502314" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-        Инфографика: 3 кита и 4 навыка<br>images/block1-infographic.jpg
+  <!-- ── СКРОЛЛИ-ТЕЛЛИНГ: стандарты = забота (покадровая анимация по скроллу) ── -->
+  <section class="bite-scrolly" id="bite-scrolly">
+    <div class="bite-sticky">
+      <div class="bite-stage">
+
+        <!-- Левая колонка: сменяющиеся карточки -->
+        <div class="bite-cards">
+          <div class="bite-card-stack" id="bite-card-stack">
+            <article class="bite-card active" data-step="0">
+              <p class="bite-card__eyebrow">Что чувствует Гость</p>
+              <h3 class="bite-card__title">Сочная котлета</h3>
+              <p class="bite-card__text">Это не случайность. Это температура жарки и стандарты хранения мяса в&nbsp;PHU.</p>
+            </article>
+            <article class="bite-card" data-step="1">
+              <p class="bite-card__eyebrow">Что чувствует Гость</p>
+              <h3 class="bite-card__title">Горячий бургер</h3>
+              <p class="bite-card__text">Это помидоры, которые идут в&nbsp;сборку не&nbsp;сразу из&nbsp;холодильника, и&nbsp;тайминг на&nbsp;линии.</p>
+            </article>
+            <article class="bite-card" data-step="2">
+              <p class="bite-card__eyebrow">Что чувствует Гость</p>
+              <h3 class="bite-card__title">Чистый стол</h3>
+              <p class="bite-card__text">Это стандарты уборки зала, которые срабатывают раньше, чем Гость успеет заметить.</p>
+            </article>
+            <article class="bite-card bite-card--final" data-step="3">
+              <p class="bite-card__eyebrow">Это и есть Гостемания</p>
+              <h3 class="bite-card__title">Не новый стандарт</h3>
+              <p class="bite-card__text">Гостемания — не&nbsp;ещё одно правило поверх существующих. Наши стандарты и&nbsp;формируют заботу о&nbsp;Госте — в&nbsp;каждом бургере и&nbsp;за&nbsp;каждым столом.</p>
+            </article>
+          </div>
+          <div class="bite-progress" id="bite-progress">
+            <span class="bite-progress__dot active"></span>
+            <span class="bite-progress__dot"></span>
+            <span class="bite-progress__dot"></span>
+            <span class="bite-progress__dot"></span>
+          </div>
+        </div>
+
+        <!-- Правая колонка: покадровая анимация -->
+        <div class="bite-media">
+          <canvas id="bite-canvas" width="560" height="560" aria-label="Гость пробует бургер"></canvas>
+        </div>
+
+      </div>
+      <div class="bite-hint">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        Листай, чтобы смотреть дальше
       </div>
     </div>
+  </section>
+  <!-- ── / СКРОЛЛИ-ТЕЛЛИНГ ── -->
 
+  <div class="content-wrap" style="padding-top:48px;">
     <div class="fade-in body-text">
       <p>Философия Гостемании живёт в твоих действиях. А когда случается проблема — в игру вступает алгоритм ДОБРО.</p>
     </div>
@@ -392,63 +442,78 @@
 
   <div class="content-wrap">
 
-    <!-- ── Тренажёр: расстановка фраз ── -->
-    <div class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:40px;">
+    <!-- ── Ситуация (общая для двух упражнений) ── -->
+    <div class="fade-in" style="margin-bottom:24px;">
       <p style="font-size:13px;font-weight:700;color:#FF8732;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 8px;">Тренажёр</p>
-      <p style="font-size:17px;font-weight:700;margin:0 0 6px;"><strong>Ситуация:</strong> к тебе подходит Гость и говорит: «Я жду заказ уже 10 минут! Вы тут что вообще делаете!»</p>
-      <p style="font-size:15px;margin:0 0 20px;opacity:0.8;">Как ты ответишь Гостю? <strong>Расставь фрагменты фраз в верном порядке</strong> — перетащи карточки.</p>
+      <p style="font-size:17px;font-weight:700;margin:0;"><strong>Ситуация:</strong> к тебе подходит Гость и говорит: «Я жду заказ уже 10 минут! Что вы так долго делаете!»</p>
+    </div>
 
+    <!-- ── Упражнение А: сортировка фраз по двум столбцам ── -->
+    <div class="fade-in" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:24px;">
+      <p style="font-size:15px;font-weight:700;margin:0 0 8px;">Разнеси фразы по двум столбцам</p>
+      <p style="font-size:14px;margin:0 0 14px;opacity:0.7;">Перетащи каждую фразу туда, где ей место</p>
+      <div class="zone-pool" id="exa-pool">
+        <div class="drag-chip drag-chip--text" id="exa1" data-key="help1">«Вы правы, это долго! Сейчас проверю ваш заказ, он будет готов вне очереди»</div>
+        <div class="drag-chip drag-chip--text" id="exa2" data-key="help2">«Примите, пожалуйста, наш комплемент — десерт, в качестве извинения за долгое ожидание»</div>
+        <div class="drag-chip drag-chip--text" id="exa3" data-key="help3">«Спасибо Вам за обратную связь, вы помогаете нам становиться лучше!»</div>
+        <div class="drag-chip drag-chip--text" id="exa4" data-key="bad1">«Понимаю, что вы долго ожидаете, сегодня у нас много заказов, повара не справляются»</div>
+        <div class="drag-chip drag-chip--text" id="exa5" data-key="bad2">«Нам очень жаль, что Вы расстроены. Сейчас в ресторане большая очередь, нужно подождать ещё 5 минут»</div>
+        <div class="drag-chip drag-chip--text" id="exa6" data-key="bad3">«Спасибо, что сказали нам об этом. Я сейчас же позову менеджера»</div>
+      </div>
+      <div class="drop-zones-row" style="margin-top:14px;">
+        <div>
+          <div class="drop-zone-label" style="color:#198737;">✓ Помогут решить проблему</div>
+          <div class="drop-zone" id="exa-zone-help"></div>
+        </div>
+        <div>
+          <div class="drop-zone-label" style="color:#D62300;">✗ Усугубят ситуацию</div>
+          <div class="drop-zone" id="exa-zone-bad"></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;"><button class="btn-check" onclick="checkExA()">Проверить</button></div>
+      <div id="exa-feedback" class="feedback-box"></div>
+      <div id="exa-next" style="display:none;margin-top:16px;">
+        <button class="btn-secondary" onclick="revealExB()">
+          Далее
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Упражнение Б: собрать ответ из фрагментов (открывается после А) ── -->
+    <div id="exercise-b" class="fade-in hidden" style="background:#F5EBDC;border-radius:20px;padding:28px 24px;margin-bottom:24px;">
+      <p style="font-size:15px;font-weight:700;margin:0 0 6px;">Составь полный ответ на обращение Гостя</p>
+      <p style="font-size:14px;margin:0 0 16px;opacity:0.7;">Расставь фрагменты фраз в верном порядке — перетащи карточки</p>
       <div class="sortable-list" id="sortable-list">
         <div class="sort-item" data-idx="0" draggable="true">
           <span class="sort-handle"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg></span>
-          «Сейчас проверю ваш заказ, он будет готов вне очереди»
+          Вы правы, это долго
         </div>
         <div class="sort-item" data-idx="1" draggable="true">
           <span class="sort-handle"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg></span>
-          «Вы правы, это долго»
+          Я сейчас же проверю Ваш заказ
         </div>
         <div class="sort-item" data-idx="2" draggable="true">
           <span class="sort-handle"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg></span>
-          «Примите, пожалуйста, наш комплемент — десерт, в качестве извинения. Благодарим Вас за обратную связь! Вы помогаете нам становиться лучше»
+          Простите нас, пожалуйста
         </div>
         <div class="sort-item" data-idx="3" draggable="true">
           <span class="sort-handle"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg></span>
-          «Простите нас, пожалуйста»
+          Ваш заказ будет готов вне очереди. Примите, пожалуйста, наш комплемент — десерт, в качестве извинения
+        </div>
+        <div class="sort-item" data-idx="4" draggable="true">
+          <span class="sort-handle"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 4h12v1.5H2zm0 3.5h12V9H2zm0 3.5h12V12.5H2z"/></svg></span>
+          Спасибо Вам за обратную связь, вы помогаете нам становиться лучше!
         </div>
       </div>
-
       <div style="margin-top:20px;"><button class="btn-check" onclick="checkSortOrder()">Проверить</button></div>
       <div id="sort-feedback" class="feedback-box"></div>
-    </div>
-
-    <!-- Разбор шагов (открывается после проверки) -->
-    <div id="sort-analysis" class="fade-in hidden" style="margin-bottom:40px;">
-      <h3 style="font-size:20px;margin-bottom:20px;">Что сделал сотрудник на каждом шаге:</h3>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</div>
-          <div style="font-size:15px;padding-top:5px;"><strong>Диагностировал настроение</strong> — понял, что Гость зол и ему важно признать его правоту</div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</div>
-          <div style="font-size:15px;padding-top:5px;"><strong>Не нарушил принципы</strong> — не стал спорить, оправдываться или паниковать</div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">3</div>
-          <div style="font-size:15px;padding-top:5px;"><strong>Определил алгоритм</strong> — для долгого ожидания &gt;8 минут нужно извиниться, ускорить заказ и дать комплемент</div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#FF8732;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">4</div>
-          <div style="font-size:15px;padding-top:5px;"><strong>Принял решение</strong> — предложил комплемент Гостю и ускорил заказ</div>
-        </div>
+      <div id="exb-next" style="display:none;margin-top:16px;">
+        <button class="btn-secondary" onclick="revealMoodTrainer()">
+          Далее
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
-    </div>
-
-    <div id="sort-next-btn" style="display:none;margin-bottom:40px;">
-      <button class="btn-secondary" onclick="document.getElementById('video-section').classList.remove('hidden');this.closest('div').style.display='none';">
-        Продолжить
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-      </button>
     </div>
 
     <!-- ── Тест на определение настроения ── -->
@@ -456,7 +521,9 @@
       <div class="section-divider"></div>
 
       <div class="fade-in body-text" style="margin-bottom:32px;">
-        <p>А теперь разберём <strong>первый шаг</strong> подробнее — как определять настроение Гостя.</p>
+        <p>Отлично! Теперь ты знаешь, как использовать алгоритм ДОБРО.</p>
+        <p>А чтобы алгоритм был твоим помощником для решения любых инцидентов в ресторане, нужно научиться определять настроение Гостя.</p>
+        <p><strong>Давай потренируемся:</strong></p>
       </div>
 
       <!-- Вопрос 1 — embed: block3-mood-1 -->
@@ -838,8 +905,8 @@
       </div>
     
       <div id="hub-next-row">
-        <button class="btn-next" onclick="navigateTo('block8')">
-          Далее
+        <button class="btn-next" onclick="navigateTo('test')">
+          К итоговому тесту
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </button>
       </div>
@@ -1278,7 +1345,45 @@
 
 
 <!-- ════════════════════════════════
-     БЛОК 5. ЗАКЛЮЧЕНИЕ
+     БЛОК 5. ИТОГОВЫЙ ТЕСТ
+════════════════════════════════ -->
+<div id="page-test" class="page">
+  <div class="page-banner" style="background:linear-gradient(135deg,#2B7BB9 0%,#502314 100%);padding-top:64px;">
+    <div class="banner-label">
+      <h1 style="color:#fff;font-size:clamp(28px,5vw,50px);margin:0;position:relative;">ИТОГОВЫЙ ТЕСТ</h1>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <div class="fade-in body-text" style="margin-bottom:28px;">
+      <p>Проверим, как ты усвоил материал. В тесте 10 вопросов. Чтобы перейти к заключению, нужно ответить верно минимум на 80% — это 8 из 10. Если не получится, тест можно пройти заново.</p>
+    </div>
+
+    <div id="test-questions"></div>
+
+    <div class="next-row" style="margin-top:32px;justify-content:flex-start;">
+      <button class="btn-check" id="test-submit" onclick="checkTest()">Завершить тест</button>
+    </div>
+    <div id="test-result" class="feedback-box" style="margin-top:24px;"></div>
+
+    <div id="test-retake-row" style="display:none;margin-top:20px;">
+      <button class="btn-secondary" onclick="retakeTest()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v6h6M20 20v-6h-6M20 9a8 8 0 00-14.9-3M4 15a8 8 0 0014.9 3"/></svg>
+        Пройти заново
+      </button>
+    </div>
+
+    <div id="test-pass-row" style="display:none;margin-top:24px;">
+      <button class="btn-next" onclick="navigateTo('block8')" style="background:#198737;">
+        К заключению
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     БЛОК 6. ЗАКЛЮЧЕНИЕ
 ════════════════════════════════ -->
 <div id="page-block8" class="page">
 
