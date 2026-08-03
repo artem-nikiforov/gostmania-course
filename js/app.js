@@ -918,6 +918,82 @@ const TEST_QUESTIONS = [
 // Порядок вариантов на текущую попытку (перемешивается при initTest)
 let testOptionOrder = [];
 
+/* ═══════════════════════════════════════════════
+   Логирование попыток теста в Google Таблицу
+   ───────────────────────────────────────────────
+   ГЛАВНОЕ ПРАВИЛО: эта отправка НИКОГДА не должна влиять на
+   прохождение курса — ни скоростью, ни сбоем. Поэтому:
+     • fetch без await — вызывающий код (checkTest) не ждёт ответа
+       и продолжает выполняться мгновенно;
+     • mode:'no-cors' — мы всё равно не читаем ответ, поэтому не
+       ждём и не проверяем его; сама отправка не требует preflight
+       (Content-Type: text/plain — «simple request»);
+     • .catch(()=>{}) — сетевая ошибка, таймаут, заблокированный
+       прокси или недоступный скрипт молча игнорируются;
+     • try/catch снаружи — даже ошибка при СБОРКЕ запроса не
+       выйдет за пределы функции;
+     • если GOOGLE_SHEET_ENDPOINT пуст — функция ничего не делает.
+   Из-за mode:'no-cors' мы не можем узнать, дошли ли данные —
+   это осознанный компромисс ради «не блокирует и не роняет».
+═══════════════════════════════════════════════ */
+const GOOGLE_SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwA_o6jGPhxRKZb7b0Mv1_M4K1pp6NAScxoxK0jH3yWk5cgWSbibDdaLo-Iu_n3MP7Y/exec';
+const GOOGLE_SHEET_SECRET   = 'gostemania-2026'; // должен совпадать с SHARED_SECRET в скрипте Apps Script
+
+// Номер попытки — считается в рамках вкладки (переживает refresh через sessionStorage)
+let testAttemptNum = (() => {
+  try { return parseInt(sessionStorage.getItem('gostemania_test_attempt') || '0', 10) || 0; }
+  catch (e) { return 0; }
+})();
+
+// ID сессии прохождения — просто чтобы группировать попытки одного захода
+const testSessionId = (() => {
+  try {
+    let id = sessionStorage.getItem('gostemania_session_id');
+    if (!id) { id = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem('gostemania_session_id', id); }
+    return id;
+  } catch (e) { return 'nosession-' + Date.now(); }
+})();
+
+function logTestAttempt(perQuestion, correctCount, total, passed) {
+  if (!GOOGLE_SHEET_ENDPOINT) return; // не настроено — тихо выходим, курс не в курсе о существовании этой функции
+
+  try {
+    testAttemptNum++;
+    try { sessionStorage.setItem('gostemania_test_attempt', String(testAttemptNum)); } catch (e) {}
+
+    let studentId = '', studentName = '';
+    if (window.SCORM && typeof SCORM.get === 'function') {
+      try { studentId = SCORM.get('cmi.core.student_id') || ''; } catch (e) {}
+      try { studentName = SCORM.get('cmi.core.student_name') || ''; } catch (e) {}
+    }
+
+    const payload = {
+      secret: GOOGLE_SHEET_SECRET,
+      timestamp: new Date().toISOString(),
+      session_id: testSessionId,
+      attempt: testAttemptNum,
+      student_id: studentId,
+      student_name: studentName,
+      score: correctCount,
+      total: total,
+      passed: passed ? 'да' : 'нет',
+    };
+    perQuestion.forEach((q, i) => {
+      payload['q' + (i + 1) + '_answer']  = q.answerText;
+      payload['q' + (i + 1) + '_correct'] = q.correct ? 'да' : 'нет';
+    });
+
+    fetch(GOOGLE_SHEET_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // без preflight-запроса
+      body: JSON.stringify(payload),
+    }).catch(() => {}); // сеть недоступна / прокси заблокировал / скрипт упал — игнорируем
+  } catch (e) {
+    // Что бы здесь ни пошло не так — тест уже засчитан выше, это не должно всплыть
+  }
+}
+
 function initTest() {
   // Порядок вариантов перемешиваем заново на каждую попытку
   testOptionOrder = TEST_QUESTIONS.map(qq => shuffledIndices(qq.options.length));
@@ -957,6 +1033,7 @@ function renderTest() {
 
 function checkTest() {
   let correctCount = 0;
+  const perQuestion = [];   // для логирования попытки — см. logTestAttempt()
   TEST_QUESTIONS.forEach((qq, qi) => {
     const chosen = [...document.querySelectorAll(`input[name="tq-${qi}"]:checked`)].map(i => parseInt(i.value));
     const correctSet = qq.options.map((o, i) => o.correct ? i : -1).filter(i => i >= 0);
@@ -964,6 +1041,10 @@ function checkTest() {
     if (ok) correctCount++;
     const qEl = document.getElementById('test-q-' + qi);
     if (qEl) { qEl.classList.remove('q-correct', 'q-wrong'); qEl.classList.add(ok ? 'q-correct' : 'q-wrong'); }
+    perQuestion.push({
+      answerText: chosen.length ? chosen.map(i => qq.options[i].t).join('; ') : '(не отвечено)',
+      correct: ok,
+    });
   });
 
   const total = TEST_QUESTIONS.length;
@@ -986,6 +1067,12 @@ function checkTest() {
     document.getElementById('test-pass-row').style.display = 'none';
   }
   result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Отправка попытки в Google Таблицу — строго последним шагом.
+  // Курс к этому моменту уже полностью обновил UI и SCORM;
+  // logTestAttempt() асинхронна и ни при каких условиях не блокирует
+  // и не может сломать прохождение (см. её описание ниже).
+  logTestAttempt(perQuestion, correctCount, total, passed);
 }
 
 function retakeTest() {
